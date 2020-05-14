@@ -59,4 +59,5 @@ void DataCompressor::WriteData(string name, int size) {
 	}
 	fin.read(buf, size - cnt);
 	fileData.write(buf, size - cnt);
+	fin.close();
 }

@@ -1,6 +1,7 @@
 #include"dataaccessor.h"
 #include<fstream>
 #include<iostream>
+#include<Windows.h>
 using namespace std;
 
 DataAccessor::DataAccessor(string _path, string name)
@@ -40,6 +41,7 @@ void DataAccessor::Load(string name) {
 	fout.write(buf, fileInfo.second - cnt);
 	fin.close();
 	fout.close();
+	fileList.push_back(GetLastPath(name));
 }
 
 void DataAccessor::pr() {
@@ -55,4 +57,11 @@ string DataAccessor::GetLastPath(const string& p) {
 			return p.substr(i + 1, l - i - 1);
 	}
 	return p;
+}
+
+void DataAccessor::Clear() {
+	for (auto file : fileList) {
+		DeleteFile(file.c_str());
+	}
+	fileList.clear();
 }
