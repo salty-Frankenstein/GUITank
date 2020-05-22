@@ -1,20 +1,9 @@
 ﻿#include "graphics.h"
-
+#include "common.h"
 /* point structure */
 Point::Point(float _x, float _y) {
 	x = _x;
 	y = _y;
-}
-
-/* 函数：string 转换 LPCWSTR */
-LPCWSTR stringToLPCWSTR(std::string orig) {
-	size_t origsize = orig.length() + 1;
-	const size_t newsize = 100;
-	size_t convertedChars = 0;
-	wchar_t *wcstring = (wchar_t *)malloc(sizeof(wchar_t)*(orig.length() - 1));
-	mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
-
-	return wcstring;
 }
 
 /* class Text */
@@ -54,8 +43,12 @@ void Text::SetRect(float left, float top, float right, float bottom) {
 /* class Bitmap */
 Bitmap::Bitmap() {}
 
-Bitmap::Bitmap(LPCWSTR _picname) {
+Bitmap::Bitmap(std::wstring _picname) {
 	picname = _picname;
+}
+
+Bitmap::~Bitmap() {
+	pBitmap->Release();
 }
 
 bool Bitmap::Create() {
@@ -77,7 +70,7 @@ bool Bitmap::Create() {
 
 
 	hr = pIWICFactory->CreateDecoderFromFilename(
-		picname,
+		picname.c_str(),
 		NULL,
 		GENERIC_READ,
 		WICDecodeMetadataCacheOnLoad,
@@ -117,8 +110,15 @@ bool Bitmap::Create() {
 		MessageBox(NULL, _T("Draw 3failed!"), _T("Error"), 0);
 		return false;
 	}
-
 	return true;
+}
+
+void Bitmap::Release() {
+	SAFE_RELEASE(pDecoder);
+	SAFE_RELEASE(pSource);
+	SAFE_RELEASE(pStream);
+	SAFE_RELEASE(pConverter);
+	SAFE_RELEASE(pScaler);
 }
 
 ID2D1Bitmap* Bitmap::GetBitmap() {
@@ -224,6 +224,7 @@ bool GFactory::CreateBitmap(Bitmap &bmp) {
 		MessageBox(NULL, _T("Draw 4failed!"), _T("Error"), 0);
 		return false;
 	}
+	bmp.Release();
 	return true;
 }
 

@@ -8,7 +8,7 @@
 
 typedef D2D1_COLOR_F COLOR;
 #define _COLOR(COLOR) ( D2D1::ColorF(D2D1::ColorF:: COLOR ) )
-
+#define SAFE_RELEASE(P) if(P){P->Release() ; P = NULL ;}
 
 /* point structure */
 struct Point {
@@ -16,10 +16,6 @@ struct Point {
 	float y;
 	Point(float _x, float _y);
 };
-
-
-/* 函数：string 转换 LPCWSTR */
-LPCWSTR stringToLPCWSTR(std::string orig);
 
 
 /*
@@ -49,8 +45,10 @@ class Bitmap
 class Bitmap {
 public:
 	Bitmap();
-	Bitmap(LPCWSTR _picname);
+	Bitmap(std::wstring _picname);
+	~Bitmap();
 	bool Create();
+	void Release();
 	ID2D1Bitmap* GetBitmap();
 	ID2D1Bitmap** GetBitmapPtr();
 	IWICFormatConverter* GetConverter();
@@ -63,7 +61,7 @@ private:
 	IWICStream *pStream;
 	IWICFormatConverter *pConverter;
 	IWICBitmapScaler *pScaler;
-	LPCWSTR picname;
+	std::wstring picname;
 };
 
 

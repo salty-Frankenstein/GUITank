@@ -1,5 +1,6 @@
 ﻿#include"wnd.h"
 #include"graphics.h"
+#include"dataaccess.h"
 HWND hwnd;
 bool getKey[256] = { 0 };
 bool keyDown = false;
@@ -23,12 +24,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
+
+DataAccess* dao = new NormalDataAccess();
+//DataAccess* dao = new CompressedDataAccess(".\\", "src");
 GFactory gf(hwnd);
 Brush b;
+Bitmap* bmp;
+
+void init() {
+	gf.Create();
+	gf.CreateBrush(b, _COLOR(Black));
+	bmp = new Bitmap(dao->GetFile(".\\src\\1.bmp"));
+	bmp->Create();
+	gf.CreateBitmap(*bmp);
+	
+}
+
 bool Display() {
 	gf.BeginDraw();
 	gf.Clear(_COLOR(White));
 	gf.DrawLine(b, 1, 1, 200, 200, 1);
+	gf.DrawBitmap(*bmp, 1, 1, 100, 100);
 	gf.EndDraw();
 	return true;
 }
@@ -39,8 +55,10 @@ int WINAPI WinMain(WINPARAMETERS) {
 	if (!myWnd.Create(INITPARAMETERS))
 		return 0;
 	hwnd = myWnd.GetHandle();
-	gf.Create();
-	gf.CreateBrush(b, _COLOR(Black));
 	
-	return myWnd.Run();
+	init();
+	myWnd.Run();
+	delete bmp;
+	dao->ClearFile();
+	return 0;
 }

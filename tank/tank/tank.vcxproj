@@ -119,11 +119,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="common.cpp" />
+    <ClCompile Include="dataaccess.cpp" />
     <ClCompile Include="griphics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="wnd.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="dataaccess.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="wnd.h" />
   </ItemGroup>

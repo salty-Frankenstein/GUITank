@@ -10,7 +10,6 @@ class Wnd {
 public:
 	Wnd();
 	Wnd(int _height, int _width, WNDPROC proc, bool(*callback)(), LPCSTR _name);
-	~Wnd() {}
 
 	HWND GetHandle();
 	bool Create(HINSTANCE instanceHandle, int show);

@@ -24,12 +24,24 @@
     <ClCompile Include="griphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="dataaccess.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="graphics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dataaccess.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
