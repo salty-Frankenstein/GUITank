@@ -21,13 +21,13 @@
     <ClCompile Include="wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="griphics.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="dataaccess.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="common.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
