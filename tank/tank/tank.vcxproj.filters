@@ -30,6 +30,42 @@
     <ClCompile Include="graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tankbase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="playertank.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="enemytank.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="number.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="barrier.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wnd.h">
@@ -42,6 +78,45 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tankbase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="playertank.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="barrier.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="enemytank.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="number.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

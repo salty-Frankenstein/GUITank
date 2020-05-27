@@ -41,14 +41,17 @@ void Text::SetRect(float left, float top, float right, float bottom) {
 
 
 /* class Bitmap */
-Bitmap::Bitmap() {}
+Bitmap::Bitmap() {
+	pBitmap = NULL;
+}
 
 Bitmap::Bitmap(std::wstring _picname) {
 	picname = _picname;
+	pBitmap = NULL;
 }
 
 Bitmap::~Bitmap() {
-	pBitmap->Release();
+	SAFE_RELEASE(pBitmap);
 }
 
 bool Bitmap::Create() {

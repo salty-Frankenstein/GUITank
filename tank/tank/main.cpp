@@ -1,6 +1,9 @@
 ﻿#include"wnd.h"
 #include"graphics.h"
 #include"dataaccess.h"
+#include"sprite.h"
+#include"game.h"
+
 HWND hwnd;
 bool getKey[256] = { 0 };
 bool keyDown = false;
@@ -24,28 +27,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-
-DataAccess* dao = new NormalDataAccess();
-//DataAccess* dao = new CompressedDataAccess(".\\", "src");
 GFactory gf(hwnd);
+Game game(gf);
 Brush b;
-Bitmap* bmp;
 
 void init() {
-	gf.Create();
-	gf.CreateBrush(b, _COLOR(Black));
-	bmp = new Bitmap(dao->GetFile(".\\src\\1.bmp"));
-	bmp->Create();
-	gf.CreateBitmap(*bmp);
-	
+	game.ResourceInit();
+	game.gf->CreateBrush(b, _COLOR(Black));
 }
 
 bool Display() {
-	gf.BeginDraw();
-	gf.Clear(_COLOR(White));
-	gf.DrawLine(b, 1, 1, 200, 200, 1);
-	gf.DrawBitmap(*bmp, 1, 1, 100, 100);
-	gf.EndDraw();
+	game.gf->BeginDraw();
+	game.gf->Clear(_COLOR(White));
+	game.gf->DrawLine(b, 1, 1, 200, 200, 1);
+	game.gf->DrawBitmap(GETBITMAP(game, 0), 1, 1, 100, 100);
+	game.gf->EndDraw();
 	return true;
 }
 
@@ -58,7 +54,6 @@ int WINAPI WinMain(WINPARAMETERS) {
 	
 	init();
 	myWnd.Run();
-	delete bmp;
-	dao->ClearFile();
+	game.dao->ClearFile();
 	return 0;
 }
