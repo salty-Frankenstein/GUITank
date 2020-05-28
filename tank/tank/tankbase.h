@@ -28,7 +28,7 @@ protected:
 	int hp;
 	int damage;
 	int speed;			//0 ~ 19
-private:
+//private:
 	int widthX;
 	int widthY;
 };

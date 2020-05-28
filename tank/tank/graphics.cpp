@@ -318,12 +318,12 @@ void GFactory::DrawBitmap(Bitmap &bmp, float left, float top, float right, float
 		D2D1::Matrix3x2F::Rotation(angle,
 			D2D1::Point2F((rec1.right + rec1.left) / 2, (rec1.top + rec1.bottom) / 2))
 		*D2D1::Matrix3x2F::Scale(
-			//D2D1::Size((right - left) / imgSize.width, (bottom - top) / imgSize.height),
 			D2D1::Size((right - left) / imgSize.width, (bottom - top) / imgSize.height),
 			D2D1::Point2F(left, top))
 	);
 	hdl->FillGeometry(Grec, brush);
 	hdl->SetTransform(oriTransMat);
+	SAFE_RELEASE(brush);
 }
 
 void GFactory::Write(Text &text, Brush &brush, std::string s) {

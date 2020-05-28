@@ -15,9 +15,12 @@ GameState Game::state = G_MENU;
 Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
 }
-
+Buffer testBuf;
 void Game::ResourceInit() {
 	resPool.ResourceInit();
+	testBuf.Push(make_shared<PlayerTank>(10, 10));
+	testBuf.Push(make_shared<BrickWall>(100, 100));
+	testBuf.Push(make_shared<WaterWall>(125, 125));
 }
 /*
 shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
@@ -25,10 +28,10 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 	return resPool.bmp[id];
 }
 */
+
 void Game::TestRun() {
-	static PlayerTank p(10,10);
-	p.Update();
-	p.Show();
+	testBuf.Update();
+	testBuf.Show();
 }
 
 void Game::Run() {
@@ -85,5 +88,6 @@ GFactory* Game::GetGFHdl() {
 }
 
 void Game::ClearFile() {
+	resPool.ResourceClear();
 	resPool.dao->ClearFile();
 }

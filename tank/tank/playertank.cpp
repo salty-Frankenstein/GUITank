@@ -31,48 +31,27 @@ inline void PlayerTank::DrawTank() {
 		angle = 90;
 		break;
 	}
-	resPoolHdl->gf->DrawBitmap(GETBITMAP(*resPoolHdl, image), posCur.X, posCur.Y, posCur.X + 100, posCur.Y + 100, angle);
-	/*
-	auto pos = posCur;
-	SetConsoleTextAttribute(GetStdOHdl(), 14);
-	for (int i = 0; i < PLAYERTANK_Y; i++) {
-		SetConsoleCursorPosition(GetStdOHdl(), pos);
-		pos.Y++;
-		for (int j = 0; j < PLAYERTANK_X; j++) {
-			switch (dirCur) {
-			case D_UP:
-				wcout << (image[i][j]);
-				break;
-			case D_DOWN:
-				wcout << (image[PLAYERTANK_Y - i - 1][j]);
-				break;
-			case D_LEFT:
-				wcout << (image[j][i]);
-				break;
-			case D_RIGHT:
-				wcout << (image[PLAYERTANK_X - j - 1][i]);
-				break;
-			}
-		}
-	}
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-	*/
+	DRAWBITMAP_R(*resPoolHdl, image, posCur.X, posCur.Y, posCur.X + widthX, posCur.Y + widthY, angle);
+	//resPoolHdl->gf->DrawBitmap(GETBITMAP(*resPoolHdl, image), 
+	//	posCur.X, posCur.Y, posCur.X + widthX, posCur.Y + widthY, angle);
 }
 
 inline void PlayerTank::Update() {
-	if (getKey[VK_UP])dirCur = D_UP;
-	else if (getKey[VK_DOWN])dirCur = D_DOWN;
-	else if (getKey[VK_LEFT])dirCur = D_LEFT;
-	else if (getKey[VK_RIGHT])dirCur = D_RIGHT;
-	return;
-
 	if (hp <= 0) {
 		Delete();
 	}
+
+	if (getKey[VK_UP]) { dirCur = D_UP; posCur.Y-= speed;}
+	else if (getKey[VK_DOWN]) { dirCur = D_DOWN; posCur.Y += speed; }
+	else if (getKey[VK_LEFT]) { dirCur = D_LEFT; posCur.X -= speed; }
+	else if (getKey[VK_RIGHT]) { dirCur = D_RIGHT; posCur.X += speed; }
+	return;
+
+	/*
 	posLast = posCur;
 	dirLast = dirCur;
 	static GameTime shootTime = 0;
-	/* 键盘事件 */
+	// 键盘事件 
 	auto bulPos = posCur;
 	if (_kbhit()) {
 		switch (_getch()) {
@@ -100,7 +79,7 @@ inline void PlayerTank::Update() {
 			case D_LEFT: bulPos.Y++; break;
 			case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
 			}
-			/* 如果炮口没有堵上 */
+			// 如果炮口没有堵上
 			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr) {
 				bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
 				shootTime = Game::GetGameTime();
@@ -110,7 +89,7 @@ inline void PlayerTank::Update() {
 		}
 	}
 	if (!IsSamePos(posCur, posLast)) {
-		/* 判断新位置是否有其他坦克或障碍物 */
+		// 判断新位置是否有其他坦克或障碍物
 		auto res = bufferHdl->Any(
 			[=](shared_ptr<Sprite> s)->bool {
 			if (IsBarrier(s->GetType()) &&
@@ -121,9 +100,10 @@ inline void PlayerTank::Update() {
 			return false;
 		}
 		);
-		/* 如果有则不移动 */
+		// 如果有则不移动
 		if (res != nullptr) {
 			posCur = posLast;
 		}
 	}
+	*/
 }

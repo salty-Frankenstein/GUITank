@@ -3,10 +3,15 @@
 using namespace std;
 
 /* class Barrier */
-Barrier::Barrier(int x, int y, SpriteType type)
-	: Sprite(x, y, BARRIER_LAYER, type) {}
+Barrier::Barrier(int x, int y, SpriteType type, ResourceID id)
+	: Sprite(x, y, BARRIER_LAYER, type), image(id) {}
 
 void Barrier::Update() {}
+
+void Barrier::Show() {
+	DRAWBITMAP(*resPoolHdl, image, posCur.X, posCur.Y,
+		posCur.X + BARRIER_WIDTH, posCur.Y + BARRIER_WIDTH);
+}
 
 void Barrier::Delete() {
 	del = true;
@@ -16,20 +21,13 @@ void Barrier::Delete() {
 
 /* class IronWall */
 IronWall::IronWall(int x, int y)
-	: Barrier(x, y, S_UNDESTORYABLE) {}
-
-void IronWall::Show() {
-	if (Game::GetGameTime() % REDRAW != 0)return;
-	SetConsoleTextAttribute(GetStdOHdl(), 143);
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L'■';
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-}
+	: Barrier(x, y, S_UNDESTORYABLE, BID_IRONWALL) {}
 
 /* class BrickWall */
 BrickWall::BrickWall(int x, int y)
-	: Barrier(x, y, S_DESTORYABLE) {}
+	: Barrier(x, y, S_DESTORYABLE, BID_BRICKWALL) {}
 
+/*
 void BrickWall::Show() {
 	if (Game::GetGameTime() % REDRAW != 0)return;
 	SetConsoleTextAttribute(GetStdOHdl(), 96);
@@ -37,11 +35,13 @@ void BrickWall::Show() {
 	wcout << L"＋";
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
+*/
 
 /* class WaterWall */
 WaterWall::WaterWall(int x, int y)
-	: Barrier(x, y, S_ACCESSIBLE) {}
+	: Barrier(x, y, S_ACCESSIBLE, BID_WATERWALL) {}
 
+/*
 void WaterWall::Show() {
 	if (Game::GetGameTime() % 2 != 0)return;
 	SetConsoleTextAttribute(GetStdOHdl(), 151);
@@ -49,10 +49,11 @@ void WaterWall::Show() {
 	wcout << L"≈";
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
 }
+*/
 
 /* class PlayerBase */
 PlayerBase::PlayerBase(int x, int y)
-	:Barrier(x, y, S_PLAYER_BASE) {}
+	:Barrier(x, y, S_PLAYER_BASE, BID_PLAYERBASE) {}
 
 void PlayerBase::Show() {
 	auto pos = posCur;

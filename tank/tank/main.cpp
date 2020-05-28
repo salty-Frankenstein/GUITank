@@ -5,7 +5,9 @@
 #include"game.h"
 
 HWND hwnd;
-
+GFactory gf(hwnd);
+Game game(gf);
+Brush b;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
@@ -18,17 +20,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		getKey[wParam] = false;
 		keyDown = false;
 		return 0;
-
+	case WM_CLOSE:
+		DestroyWindow(hWnd);
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-
-GFactory gf(hwnd);
-Game game(gf);
-Brush b;
 
 void init() {
 	game.ResourceInit();
