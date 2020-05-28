@@ -12,29 +12,23 @@ int Game::enemyKill = 0;
 bool Game::playerAlive = true;
 GameState Game::state = G_MENU;
 
-Game::Game(GFactory& g) : gf(&g) {
-	dao = new NormalDataAccess();
-	//dao = new CompressedDataAccess(".\\", "src");
-}
-
-Game::~Game() {
-	delete dao;
+Game::Game(GFactory& g) : resPool(g) {
+	Sprite::resPoolHdl = &resPool;
 }
 
 void Game::ResourceInit() {
-	gf->Create();
-
-	bmpPool.push_back(make_shared<Bitmap>(dao->GetFile(".\\src\\p1tankU.gif")));
-	for (auto bmp : bmpPool) {
-		bmp->Create();
-		gf->CreateBitmap(*bmp);
-	}
-	
+	resPool.ResourceInit();
 }
-
+/*
 shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
-	assert(id < bmpPool.size() &&  id >= 0);
-	return bmpPool[id];
+	assert(id < resPool.bmp.size() &&  id >= 0);
+	return resPool.bmp[id];
+}
+*/
+void Game::TestRun() {
+	static PlayerTank p(10,10);
+	p.Update();
+	p.Show();
 }
 
 void Game::Run() {
@@ -84,4 +78,12 @@ GameTime Game::GetGameTime() {
 
 void Game::AddGameTime() {
 	gameTime++;
+}
+
+GFactory* Game::GetGFHdl() {
+	return resPool.gf;
+}
+
+void Game::ClearFile() {
+	resPool.dao->ClearFile();
 }

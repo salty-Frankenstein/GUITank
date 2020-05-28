@@ -66,6 +66,9 @@
     <ClCompile Include="barrier.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="resourcepool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wnd.h">
@@ -117,6 +120,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resourceid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resourcepool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

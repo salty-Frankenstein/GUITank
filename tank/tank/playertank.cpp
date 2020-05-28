@@ -1,11 +1,8 @@
 ﻿#include"playertank.h"
 #include"game.h"
 using namespace std;
-const wchar_t PlayerTank::image[PLAYERTANK_X][PLAYERTANK_Y] = {
-	{ L'　',L'█',L'　' },
-{ L'█',L'█',L'█' },
-{ L'█',L'★',L'█' }
-};
+
+const ResourceID PlayerTank::image = BID_PLAYERTANK;
 
 PlayerTank::PlayerTank(int x, int y)
 	:TankBase(
@@ -17,6 +14,8 @@ PlayerTank::PlayerTank(int x, int y)
 		PLAYERTANK_SPEED) {}
 
 inline void PlayerTank::DrawTank() {
+	resPoolHdl->gf->DrawBitmap(GETBITMAP(*resPoolHdl, image), posCur.X, posCur.Y, posCur.X + 100, posCur.Y + 100);
+	/*
 	auto pos = posCur;
 	SetConsoleTextAttribute(GetStdOHdl(), 14);
 	for (int i = 0; i < PLAYERTANK_Y; i++) {
@@ -40,6 +39,7 @@ inline void PlayerTank::DrawTank() {
 		}
 	}
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
+	*/
 }
 
 inline void PlayerTank::Update() {

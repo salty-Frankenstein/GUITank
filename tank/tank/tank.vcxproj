@@ -132,6 +132,7 @@
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="number.cpp" />
     <ClCompile Include="playertank.cpp" />
+    <ClCompile Include="resourcepool.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stage.cpp" />
     <ClCompile Include="tankbase.cpp" />
@@ -151,6 +152,8 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="number.h" />
     <ClInclude Include="playertank.h" />
+    <ClInclude Include="resourceid.h" />
+    <ClInclude Include="resourcepool.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="stage.h" />
     <ClInclude Include="tankbase.h" />

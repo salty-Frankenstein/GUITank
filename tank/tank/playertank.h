@@ -17,5 +17,6 @@ public:
 	void Update();
 	void DrawTank();
 private:
-	static const wchar_t image[PLAYERTANK_X][PLAYERTANK_Y];
+	//static const wchar_t image[PLAYERTANK_X][PLAYERTANK_Y];
+	static const ResourceID image;
 };

@@ -1,9 +1,11 @@
 #pragma once
+
 #include<list>
 #include<memory>
 #include<functional>
 #include <windows.h>
-
+#include"resourcepool.h"
+class Game;
 class Buffer;
 
 enum SpriteType {
@@ -30,6 +32,7 @@ public:
 	COORD GetPos()const;
 	bool IsDeleted()const;
 	static Buffer* bufferHdl;	//游戏对象池句柄，实现与其它对象的消息传递
+	static ResourcePool* resPoolHdl;//游戏资源池句柄，实现资源的获取
 protected:
 	bool del;
 	int layer;
@@ -60,3 +63,4 @@ bool IsTank(SpriteType t);
 bool IsTank(std::shared_ptr<Sprite> s);
 bool IsBarrier(SpriteType t);
 bool IsBarrier(std::shared_ptr<Sprite> s);
+

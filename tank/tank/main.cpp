@@ -33,15 +33,16 @@ Brush b;
 
 void init() {
 	game.ResourceInit();
-	game.gf->CreateBrush(b, _COLOR(Black));
+	game.GetGFHdl()->CreateBrush(b, _COLOR(Black));
 }
 
 bool Display() {
-	game.gf->BeginDraw();
-	game.gf->Clear(_COLOR(White));
-	game.gf->DrawLine(b, 1, 1, 200, 200, 1);
-	game.gf->DrawBitmap(GETBITMAP(game, 0), 1, 1, 100, 100);
-	game.gf->EndDraw();
+	game.GetGFHdl()->BeginDraw();
+	game.GetGFHdl()->Clear(_COLOR(White));
+	game.GetGFHdl()->DrawLine(b, 1, 1, 200, 200, 1);
+	//game.GetGFHdl()->DrawBitmap(GETBITMAP(game.resPool, BID_PLAYERTANK), 1, 1, 100, 100);
+	game.TestRun();
+	game.GetGFHdl()->EndDraw();
 	return true;
 }
 
@@ -54,6 +55,6 @@ int WINAPI WinMain(WINPARAMETERS) {
 	
 	init();
 	myWnd.Run();
-	game.dao->ClearFile();
+	game.ClearFile();
 	return 0;
 }

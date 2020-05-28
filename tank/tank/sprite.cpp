@@ -2,6 +2,7 @@
 using namespace std;
 
 Buffer* Sprite::bufferHdl = nullptr;
+ResourcePool* Sprite::resPoolHdl = nullptr;
 
 Sprite::Sprite(int x, int y, int _layer, SpriteType _type) {
 	posCur.X = x;

@@ -7,8 +7,7 @@
 #include <ctime>
 #include <string>
 #include <memory>
-
-typedef int ResourceID;
+#include "resourceid.h"
 
 /* 函数：string 转换 LPCWSTR */
 LPCWSTR stringToLPCWSTR(std::string orig);
