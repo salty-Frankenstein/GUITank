@@ -7,6 +7,9 @@ Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
 	dir = _dir;
 	posCur.X = posLast.X = _x;
 	posCur.Y = posLast.Y = _y;
+	if (type == S_PLAYER_BULLET)
+		image = BID_PLAYERBULLET;
+	else image = BID_ENENYBULLET;
 }
 
 void Bullet::Delete() {
@@ -19,12 +22,12 @@ void Bullet::Update() {
 	/* 移动 */
 	posLast = posCur;
 	switch (dir) {
-	case D_UP:posCur.Y--; break;
-	case D_DOWN:posCur.Y++; break;
-	case D_LEFT:posCur.X -= 2; break;
-	case D_RIGHT:posCur.X += 2; break;
+	case D_UP:posCur.Y -= BULLET_SPEED; break;
+	case D_DOWN:posCur.Y += BULLET_SPEED; break;
+	case D_LEFT:posCur.X -= BULLET_SPEED; break;
+	case D_RIGHT:posCur.X += BULLET_SPEED; break;
 	}
-
+	return;
 	/* 判断是当前子弹的目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
 		if (s->GetType() == S_PLAYER_BASE)return true;
@@ -112,6 +115,9 @@ void Bullet::Update() {
 
 void Bullet::Show() {
 	if (del)return;
+	DRAWBITMAP(*resPoolHdl, image, 
+		posCur.X, posCur.Y, posCur.X + BULLET_WIDTH, posCur.Y + BULLET_WIDTH);
+	/*
 	if(type == S_PLAYER_BULLET)
 		SetConsoleTextAttribute(GetStdOHdl(), 14);
 	else SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED);
@@ -120,6 +126,7 @@ void Bullet::Show() {
 	SetConsoleCursorPosition(GetStdOHdl(), posCur);
 	wcout << image;
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
+	*/
 }
 
 Direction Bullet::GetDirection()const {

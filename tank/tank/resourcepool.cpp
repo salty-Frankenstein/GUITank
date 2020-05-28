@@ -11,8 +11,18 @@ void ResourcePool::ResourceInit() {
 	bmp[BID_IRONWALL] = make_shared<Bitmap>(dao->GetFile(".\\src\\steel.gif"));
 	bmp[BID_BRICKWALL] = make_shared<Bitmap>(dao->GetFile(".\\src\\walls.gif"));
 	bmp[BID_WATERWALL] = make_shared<Bitmap>(dao->GetFile(".\\src\\water.gif"));
+	bmp[BID_PLAYERBASE] = make_shared<Bitmap>(dao->GetFile(".\\src\\symbol.gif"));
+	bmp[BID_PLAYERBULLET] = make_shared<Bitmap>(dao->GetFile(".\\src\\tankmissile.gif"));
+	bmp[BID_ENENYBULLET] = make_shared<Bitmap>(dao->GetFile(".\\src\\enemymissile.gif"));
 
-	//bmp.push_back(make_shared<Bitmap>(dao->GetFile(".\\src\\1.bmp")));
+	bmp[BID_HEAVY_R] = make_shared<Bitmap>(dao->GetFile(".\\src\\heavyRed.png"));
+	bmp[BID_HEAVY_G] = make_shared<Bitmap>(dao->GetFile(".\\src\\heavyGreen.png"));
+	bmp[BID_HEAVY_B] = make_shared<Bitmap>(dao->GetFile(".\\src\\heavyBlue.png"));
+	bmp[BID_LIGHT] = make_shared<Bitmap>(dao->GetFile(".\\src\\enemy1U.gif"));
+	bmp[BID_ARMORED_G] = make_shared<Bitmap>(dao->GetFile(".\\src\\armoredGreen.png"));
+	bmp[BID_ARMORED_B] = make_shared<Bitmap>(dao->GetFile(".\\src\\armoredBlue.png"));
+	bmp[BID_ANTI] = make_shared<Bitmap>(dao->GetFile(".\\src\\anti.png"));
+
 	for (auto b : bmp) {
 		b.second->Create();
 		gf->CreateBitmap(*b.second);
