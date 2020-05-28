@@ -14,7 +14,24 @@ PlayerTank::PlayerTank(int x, int y)
 		PLAYERTANK_SPEED) {}
 
 inline void PlayerTank::DrawTank() {
-	resPoolHdl->gf->DrawBitmap(GETBITMAP(*resPoolHdl, image), posCur.X, posCur.Y, posCur.X + 100, posCur.Y + 100);
+	float angle;
+	
+	switch (dirCur)
+	{
+	case D_UP:
+		angle = 0;
+		break;
+	case D_DOWN:
+		angle = 180;
+		break;
+	case D_LEFT:
+		angle = 270;
+		break;
+	case D_RIGHT:
+		angle = 90;
+		break;
+	}
+	resPoolHdl->gf->DrawBitmap(GETBITMAP(*resPoolHdl, image), posCur.X, posCur.Y, posCur.X + 100, posCur.Y + 100, angle);
 	/*
 	auto pos = posCur;
 	SetConsoleTextAttribute(GetStdOHdl(), 14);
@@ -43,6 +60,12 @@ inline void PlayerTank::DrawTank() {
 }
 
 inline void PlayerTank::Update() {
+	if (getKey[VK_UP])dirCur = D_UP;
+	else if (getKey[VK_DOWN])dirCur = D_DOWN;
+	else if (getKey[VK_LEFT])dirCur = D_LEFT;
+	else if (getKey[VK_RIGHT])dirCur = D_RIGHT;
+	return;
+
 	if (hp <= 0) {
 		Delete();
 	}

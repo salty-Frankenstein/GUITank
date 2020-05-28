@@ -304,6 +304,28 @@ void GFactory::DrawBitmap(Bitmap &bmp, float left, float top, float right, float
 	);
 }
 
+void GFactory::DrawBitmap(Bitmap &bmp, float left, float top, float right, float bottom, float angle) {
+	D2D1::Matrix3x2F oriTransMat;
+	hdl->GetTransform(&oriTransMat);
+	D2D1_SIZE_F imgSize = bmp.GetBitmap()->GetSize();
+	D2D_RECT_F rec1{ left,top,left + imgSize.width,top + imgSize.height };
+	ID2D1RectangleGeometry *Grec;
+	ID2D1BitmapBrush * brush;
+	hdl->CreateBitmapBrush(bmp.GetBitmap(), &brush);
+	d2dFactory->CreateRectangleGeometry(rec1, &Grec);
+	brush->SetTransform(D2D1::Matrix3x2F::Translation(left, top));
+	hdl->SetTransform(
+		D2D1::Matrix3x2F::Rotation(angle,
+			D2D1::Point2F((rec1.right + rec1.left) / 2, (rec1.top + rec1.bottom) / 2))
+		*D2D1::Matrix3x2F::Scale(
+			//D2D1::Size((right - left) / imgSize.width, (bottom - top) / imgSize.height),
+			D2D1::Size((right - left) / imgSize.width, (bottom - top) / imgSize.height),
+			D2D1::Point2F(left, top))
+	);
+	hdl->FillGeometry(Grec, brush);
+	hdl->SetTransform(oriTransMat);
+}
+
 void GFactory::Write(Text &text, Brush &brush, std::string s) {
 	hdl->DrawText(
 		stringToLPCWSTR(s),

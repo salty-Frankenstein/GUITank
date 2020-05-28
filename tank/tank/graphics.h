@@ -130,6 +130,7 @@ public:
 	void DrawTriangle(Brush &brush, Point p1, Point p2, Point p3, float width);
 
 	void DrawBitmap(Bitmap &bmp, float left, float top, float right, float bottom);
+	void DrawBitmap(Bitmap &bmp, float left, float top, float right, float bottom, float angle);
 
 	void Write(Text &text, Brush &brush, std::string s);
 	void WriteW(Text &text, Brush &brush, LPCWSTR s);

@@ -9,6 +9,9 @@
 #include <memory>
 #include "resourceid.h"
 
+extern bool getKey[256];
+extern bool keyDown;
+
 /* 函数：string 转换 LPCWSTR */
 LPCWSTR stringToLPCWSTR(std::string orig);
 

@@ -5,6 +5,9 @@
 #include <iostream>
 using namespace std;
 
+bool getKey[256] = { 0 };
+bool keyDown = false;
+
 /* 函数：string 转换 LPCWSTR */
 LPCWSTR stringToLPCWSTR(std::string orig) {
 	size_t origsize = orig.length() + 1;

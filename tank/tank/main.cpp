@@ -5,8 +5,7 @@
 #include"game.h"
 
 HWND hwnd;
-bool getKey[256] = { 0 };
-bool keyDown = false;
+
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
@@ -42,11 +41,12 @@ bool Display() {
 	game.GetGFHdl()->DrawLine(b, 1, 1, 200, 200, 1);
 	//game.GetGFHdl()->DrawBitmap(GETBITMAP(game.resPool, BID_PLAYERTANK), 1, 1, 100, 100);
 	game.TestRun();
+	game.GetGFHdl()->DrawRectangle(b, 1, 1, 100, 100, 2);
 	game.GetGFHdl()->EndDraw();
 	return true;
 }
 
-Wnd myWnd(800, 600, WndProc, Display, "hello");
+Wnd myWnd(800, 600, WndProc, Display, "Tank");
 
 int WINAPI WinMain(WINPARAMETERS) {
 	if (!myWnd.Create(INITPARAMETERS))
