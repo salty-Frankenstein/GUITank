@@ -10,7 +10,7 @@ class Stage {
 public:
 	Stage(int no, Mode mode);
 	void StageInit();
-	bool Run();
+	Result Run();
 	static ResourcePool* resPoolHdl;	//游戏资源池句柄，实现资源的获取
 private:
 	void LoadStage(int no);	//载入关卡

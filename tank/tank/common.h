@@ -9,6 +9,12 @@
 #include <memory>
 #include "resourceid.h"
 
+enum Result {
+	R_LOSE = -1,
+	R_CONTINUE = 0,
+	R_WIN = 1
+};
+
 extern bool getKey[256];
 extern bool keyDown;
 

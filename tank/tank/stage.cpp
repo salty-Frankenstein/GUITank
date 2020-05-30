@@ -33,7 +33,8 @@ void Stage::StageInit() {
 	buf.Push(bg);
 }
 
-bool Stage::Run() {
+Result Stage::Run() {
+	//assert(false);
 	if (Game::state == G_GAME) {
 		score->SetNumber(Game::enemyMax - Game::enemyKill);
 		playerNum->SetNumber(Game::player);
@@ -48,13 +49,14 @@ bool Stage::Run() {
 		buf.Update();
 
 		if (Game::player == 0) {
-			return false;
+			return R_LOSE;
 		}
 		if (Game::enemyMax == Game::enemyKill)
-			return true;
-		Game::AddGameTime();
+			return R_WIN;
+		//Game::AddGameTime();
+		return R_CONTINUE;
 	}
-	return false;
+	return R_LOSE;
 }
 
 void Stage::LoadStage(int no) {	//读取关卡文件

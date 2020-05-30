@@ -33,6 +33,7 @@ void Menu::Run() {
 			if (getKey[VK_DOWN])
 				nowActive = (nowActive + 1) % BUTTON_NUM;
 			if (getKey['Z']) {
+				Game::stageNow = 1;
 				switch (MenuButton(nowActive)) {
 				case B_EASY:Game::gameMode = M_EASY; Game::state = G_GAME; break;
 				case B_NORMAL:Game::gameMode = M_NORMAL; Game::state = G_GAME; break;

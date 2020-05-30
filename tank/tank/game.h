@@ -16,8 +16,7 @@ enum GameState { G_MENU, G_GAME, G_HISCORE, G_GAMEOVER, G_WIN, G_EXIT };
 class Game {
 public:
 	Game(GFactory&);
-	void Run();
-	void TestRun();
+	bool Run();
 	void ResourceInit();
 	//std::shared_ptr<Bitmap> GetBitmapHdl(ResourceID id);
 
@@ -33,19 +32,20 @@ public:
 	static bool playerAlive;
 	static GameState state;
 	static const int MAX_STAGE = 5;
-
+	static int stageNow;
 	/* 游戏资源池 */
 	ResourcePool resPool;
 	GFactory* GetGFHdl();
 	void ClearFile();
 
 	// TODO
-	std::shared_ptr<Stage> stg;
+	//std::shared_ptr<Stage> stg;
 
 private:
 	std::shared_ptr<Stage> stagePtr;
 	Menu menu;
 	static GameTime gameTime;
+	Result GameProc();	//lose:-1 win:1 continue:0
 };
 
 #endif 

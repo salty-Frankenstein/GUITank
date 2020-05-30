@@ -11,11 +11,12 @@ int Game::enemyNow = 0;
 int Game::enemyKill = 0;
 bool Game::playerAlive = true;
 GameState Game::state = G_MENU;
+int Game::stageNow = 1;
 
 // TODO
-Buffer testBuf;
-shared_ptr<Number> testnum = make_shared<Number>(200, 200, 5, 0.8);
-Background bg;
+//Buffer testBuf;
+//shared_ptr<Number> testnum = make_shared<Number>(200, 200, 5, 0.8);
+//Background bg;
 
 Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
@@ -27,8 +28,8 @@ Game::Game(GFactory& g) : resPool(g) {
 
 void Game::ResourceInit() {
 	resPool.ResourceInit();
-	stg = make_shared<Stage>(4, M_EASY);
-	stg->StageInit();
+	//stg = make_shared<Stage>(4, M_EASY);
+	//stg->StageInit();
 	Game::state = G_MENU;
 	//Sprite::bufferHdl = &testBuf;
 	/*
@@ -52,56 +53,70 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 }
 */
 
-void Game::TestRun() {
+bool Game::Run() {
+	gameTime++;
+	bool win = true;
+	if (state != G_EXIT) {
+		switch (state)
+		{
+		case G_MENU:
+			menu.Run();
+			break;
+		case G_GAME:
+			switch (GameProc()) {
+			case R_LOSE:state = G_GAMEOVER; break;
+			case R_WIN:state = G_WIN; break;
+			case R_CONTINUE:break;
+			}
+			break;
+		case G_HISCORE:
+			break;
+		case G_GAMEOVER:
+			DRAWBITMAP(resPool, BID_GAMEOVER, 0, 0, 960, 720);
+			if (getKey[VK_ESCAPE]) state = G_MENU;
+			break;
+		case G_WIN:
+			DRAWBITMAP(resPool, BID_GAMEOVER, 0, 0, 960, 720);
+			if (getKey[VK_ESCAPE]) state = G_MENU;
+			break;
+		default:
+			break;
+		}
+
+		return true;
+	}
+	return false;
 	//stg->Run();
-	menu.Run();
+	//menu.Run();
 	//((Music*)(resPool.sound[SID_START].get()))->active = true;
 	//resPool.sound[SID_START]->Play();
-	Game::gameTime++;
 	//testnum->SetNumber(Game::gameTime);
 	//testBuf.Update();
 	//testBuf.Show();
 }
 
-void Game::Run() {
-	//system("cls");
-	bool win = true;
-	/* 游戏主流程状态机 */
-	while (state != G_EXIT) {
-		switch (state) {
-		case G_MENU:
-			menu.Run();
-			break;
-		case G_GAME:
-			for (int stage = 1; stage <= MAX_STAGE; stage++) {
-				stagePtr = make_shared<Stage>(stage, gameMode);
-				if (!stagePtr->Run()) {
-					win = false;
-					break;
-				}
-			}
-			if (win)state = G_WIN;
-			else state = G_GAMEOVER;
-			break;
-		case G_GAMEOVER:
-			SetFontSize(18);
-			system("cls");
-			DrawTitle({ 10,10 }, GAMEOVER_PATH);
-			cout << "press any key to return" << endl;
-			_getch();
-			state = G_MENU;
-			break;
-		case G_WIN:
-			SetFontSize(18);
-			system("cls");
-			DrawTitle({ 10,10 }, WIN_PATH);
-			cout << "press any key to return" << endl;
-			_getch();
-			state = G_MENU;
-			break;
-		default:break;
-		}
+Result Game::GameProc() {
+	static bool loadStage = true;
+	if (loadStage) {
+		stagePtr = make_shared<Stage>(stageNow, gameMode);
+		stagePtr->StageInit();
+		//assert(false);
+		loadStage = false;
 	}
+	
+	switch (stagePtr->Run()) {
+	case R_LOSE:
+		return R_LOSE;
+	case R_CONTINUE:
+		return R_CONTINUE;
+	case R_WIN:
+		if (stageNow == MAX_STAGE)
+			return R_WIN;
+		stageNow++;
+		loadStage = true;
+		break;
+	}
+	return R_CONTINUE;
 }
 
 GameTime Game::GetGameTime() {

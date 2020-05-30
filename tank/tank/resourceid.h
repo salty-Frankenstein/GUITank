@@ -39,6 +39,9 @@ constexpr ResourceID BID_HARD1 = 35;
 constexpr ResourceID BID_EXIT0 = 36;
 constexpr ResourceID BID_EXIT1 = 37;
 
+constexpr ResourceID BID_GAMEOVER = 38;
+constexpr ResourceID BID_WIN = 39;
+
 constexpr ResourceID SID_START = 40;
 constexpr ResourceID SID_FIRE = 41;
 constexpr ResourceID SID_BLAST = 42;

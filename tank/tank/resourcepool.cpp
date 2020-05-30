@@ -39,6 +39,9 @@ void ResourcePool::ResourceInit() {
 	bmp[BID_EXIT0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\exit0.png"));
 	bmp[BID_EXIT1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\exit1.png"));
 
+	bmp[BID_GAMEOVER] = make_shared<Bitmap>(dao->GetFile(".\\res\\gameover.png"));
+	bmp[BID_WIN] = make_shared<Bitmap>(dao->GetFile(".\\res\\win.png"));
+
 	//number images
 	for (auto i = BID_NUM0; i <= BID_NUM9; i++) {
 		string path;
