@@ -48,7 +48,7 @@ void Buffer::Push(shared_ptr<Sprite> s) {
 void Buffer::Sort() {
 	spriteList.sort(
 		[](shared_ptr<Sprite> &a, shared_ptr<Sprite> &b) {
-		return a->GetLayer() < b->GetLayer();
+		return a->GetLayer() > b->GetLayer();
 	}
 	);
 }

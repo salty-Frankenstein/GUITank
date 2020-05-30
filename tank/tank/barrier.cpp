@@ -15,8 +15,6 @@ void Barrier::Show() {
 
 void Barrier::Delete() {
 	del = true;
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L'　';
 }
 
 /* class IronWall */
@@ -36,25 +34,11 @@ PlayerBase::PlayerBase(int x, int y)
 	:Barrier(x, y, S_PLAYER_BASE, BID_PLAYERBASE) {}
 
 void PlayerBase::Show() {
-	auto pos = posCur;
-	if (Game::GetGameTime() % REDRAW != 0)return;
-	SetConsoleCursorPosition(GetStdOHdl(), pos);
-	wcout << L"　◇　";
-	pos.Y++;
-	SetConsoleCursorPosition(GetStdOHdl(), pos);
-	wcout << L"◆○◆";
-	pos.Y++;
-	SetConsoleCursorPosition(GetStdOHdl(), pos);
-	wcout << L"　◇　";
+	DRAWBITMAP(*resPoolHdl, image, posCur.X, posCur.Y,
+		posCur.X + BARRIER_WIDTH * 3, posCur.Y + BARRIER_WIDTH * 3);
 }
 
 void PlayerBase::Delete() {
 	del = true;
-	auto pos = posCur;
-	for (int i = 1; i <= 3; i++) {
-		SetConsoleCursorPosition(GetStdOHdl(), pos);
-		wcout << L"　　　";
-		pos.Y++;
-	}
 	Game::state = G_GAMEOVER;
 }

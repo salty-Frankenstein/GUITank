@@ -1,7 +1,14 @@
 ﻿#include"background.h"
 using namespace std;
 
-void Background::Show() {}
+ResourceID Background::image = BID_BACKGROUND;
+
+Background::Background()
+	: Sprite(0, 0, BACKGROUND_LAYER) {}
+
+void Background::Show() {
+	DRAWBITMAP(*resPoolHdl, image, 0, 0, 960, 720);
+}
 
 void Background::Update() {}
 

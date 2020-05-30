@@ -74,7 +74,7 @@ void Bullet::Update() {
 	auto isHit = [=](shared_ptr<Sprite> s)->bool {
 		switch (s->GetType()) {
 		case S_PLAYER_BASE:
-			return IsHit(this->GetPos(), 1, 1, s->GetPos(), 3, 3);
+			return IsHit(this->GetPos(), 1, 1, s->GetPos(), BARRIER_WIDTH * 3, BARRIER_WIDTH * 3);
 		case S_ENEMY_BULLET:
 		case S_UNDESTORYABLE:
 			return IsHit(this->GetPos(), 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH);

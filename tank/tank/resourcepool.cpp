@@ -26,6 +26,7 @@ void ResourcePool::ResourceInit() {
 	bmp[BID_ARMORED_G] = make_shared<Bitmap>(dao->GetFile(".\\res\\armoredGreen.png"));
 	bmp[BID_ARMORED_B] = make_shared<Bitmap>(dao->GetFile(".\\res\\armoredBlue.png"));
 	bmp[BID_ANTI] = make_shared<Bitmap>(dao->GetFile(".\\res\\anti.png"));
+	bmp[BID_BACKGROUND] = make_shared<Bitmap>(dao->GetFile(".\\res\\bg.png"));
 
 	//number images
 	for (auto i = BID_NUM0; i <= BID_NUM9; i++) {

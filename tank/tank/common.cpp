@@ -29,8 +29,6 @@ void SetConsolePosition(COORD pos) {
 }
 
 bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2) {
-	//wx1 *= 2;
-	//wx2 *= 2;
 	double startX1 = pos1.X,
 		startY1 = pos1.Y,
 		endX1 = startX1 + wx1,
