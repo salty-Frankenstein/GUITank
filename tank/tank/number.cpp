@@ -1,83 +1,13 @@
 ﻿#include"number.h"
 using namespace std;
 
-const wchar_t Number::image[10][6][4] = {
-	{
-		{ L'　',L'█',L'　' },
-		{ L'█',L'　',L'█' },
-		{ L'█',L'　',L'█' },
-		{ L'█',L'　',L'█' },
-		{ L'　',L'█',L'　' },
-	},
-	{
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-	},
-	{
-		{ L'█',L'█',L'　' },
-		{ L'　',L'　',L'█' },
-		{ L'█',L'█',L'█' },
-		{ L'█',L'　',L'　' },
-		{ L'　',L'█',L'█' },
-	},
-	{
-		{ L'█',L'█',L'　' },
-		{ L'　',L'　',L'█' },
-		{ L'█',L'█',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'█',L'█',L'　' },
-	},
-	{
-		{ L'█',L'　',L'█' },
-		{ L'█',L'　',L'█' },
-		{ L'█',L'█',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-	},
-	{
-		{ L'█',L'█',L'█' },
-		{ L'█',L'　',L'　' },
-		{ L'█',L'█',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'█',L'█',L'　' },
-	},
-	{
-		{ L'　',L'█',L'█' },
-		{ L'█',L'　',L'　' },
-		{ L'█',L'█',L'█' },
-		{ L'█',L'　',L'█' },
-		{ L'　',L'█',L'　' },
-	},
-	{
-		{ L'█',L'█',L'　' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'　',L'　',L'█' },
-	},
-	{
-		{ L'　',L'█',L'　' },
-		{ L'█',L'　',L'█' },
-		{ L'█',L'█',L'█' },
-		{ L'█',L'　',L'█' },
-		{ L'　',L'█',L'　' },
-	},
-	{
-		{ L'　',L'█',L'　' },
-		{ L'█',L'　',L'█' },
-		{ L'█',L'█',L'█' },
-		{ L'　',L'　',L'█' },
-		{ L'█',L'█',L'　' },
-	},
-};
-
-Number::Number(int x, int y, int length)
+Number::Number(int x, int y, int length, double _size)
 	:Sprite(x, y), LENGTH(length) {
 	numberNow = 0;
 	numberSet = 0;
+	size = _size;
+	for (auto i = BID_NUM0; i <= BID_NUM9; i++)
+		image[i - BID_NUM0] = i;
 }
 
 void Number::SetNumber(int x) {
@@ -97,15 +27,8 @@ void Number::Show() {
 	string s = to_string(numberNow);
 	while (s.length() < LENGTH)
 		s = '0' + s;
-	auto pos = posCur;
-	
-	for (int i = 0; i < 5; i++) {
-		SetConsoleCursorPosition(GetStdOHdl(), pos);
-		for (int j = 0; s[j] != '\0'; j++) {
-			for (int k = 0; k < 3; k++)
-				wcout << image[s[j] - '0'][i][k];
-			wcout << L'　';
-		}
-		pos.Y++;
+	for (int i = 0; i < s.length(); i++) {
+		DRAWBITMAP(*resPoolHdl, image[s[i] - '0'],
+			posCur.X + i * (30*size), posCur.Y, posCur.X + (i + 1) * (30*size), posCur.Y + (37*size));
 	}
 }

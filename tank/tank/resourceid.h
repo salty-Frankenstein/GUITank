@@ -16,3 +16,14 @@ constexpr ResourceID BID_LIGHT = 10;
 constexpr ResourceID BID_ARMORED_G = 11;
 constexpr ResourceID BID_ARMORED_B = 12;
 constexpr ResourceID BID_ANTI = 13;
+
+constexpr ResourceID BID_NUM0 = 20;
+constexpr ResourceID BID_NUM1 = 21;
+constexpr ResourceID BID_NUM2 = 22;
+constexpr ResourceID BID_NUM3 = 23;
+constexpr ResourceID BID_NUM4 = 24;
+constexpr ResourceID BID_NUM5 = 25;
+constexpr ResourceID BID_NUM6 = 26;
+constexpr ResourceID BID_NUM7 = 27;
+constexpr ResourceID BID_NUM8 = 28;
+constexpr ResourceID BID_NUM9 = 29;

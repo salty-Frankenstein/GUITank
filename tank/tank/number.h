@@ -7,7 +7,7 @@
 /* 数字类，游戏中的数字显示 */
 class Number :public Sprite {
 public:
-	Number(int x, int y, int length);
+	Number(int x, int y, int length, double size = 1);
 	void Show();
 	void Update();
 	void Delete();
@@ -15,6 +15,7 @@ public:
 private:
 	int numberNow;
 	int numberSet;
+	double size;
 	const int LENGTH;
-	const static wchar_t image[10][6][4];	//十个数码的图像
+	ResourceID image[10];
 };

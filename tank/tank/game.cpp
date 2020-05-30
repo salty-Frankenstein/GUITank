@@ -16,12 +16,14 @@ Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
 }
 Buffer testBuf;
+shared_ptr<Number> testnum = make_shared<Number>(200, 200, 5, 0.8);
 void Game::ResourceInit() {
 	resPool.ResourceInit();
 	testBuf.Push(make_shared<PlayerTank>(10, 10));
 	testBuf.Push(make_shared<BrickWall>(100, 100));
 	testBuf.Push(make_shared<WaterWall>(125, 125));
 	testBuf.Push(make_shared<HeavyTank>(150, 150));
+	testBuf.Push(testnum);
 	//testBuf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 100, 100, D_RIGHT));
 }
 
@@ -33,6 +35,8 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 */
 
 void Game::TestRun() {
+	Game::gameTime++;
+	testnum->SetNumber(Game::gameTime);
 	testBuf.Update();
 	testBuf.Show();
 }

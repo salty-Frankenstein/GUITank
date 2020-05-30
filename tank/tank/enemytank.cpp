@@ -30,35 +30,6 @@ void EnemyTank::DrawTank() {
 		break;
 	}
 	DRAWBITMAP_R(*resPoolHdl, GetImage(), posCur.X, posCur.Y, posCur.X + widthX, posCur.Y + widthY, angle);
-	/*
-	auto pos = posCur;
-	switch (hp) {
-	case 1:SetConsoleTextAttribute(GetStdOHdl(), 7); break;
-	case 2:SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_GREEN); break;
-	default:SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED); break;
-	}
-	for (int i = 0; i < WIDTH_Y; i++) {
-		SetConsoleCursorPosition(GetStdOHdl(), pos);
-		pos.Y++;
-		for (int j = 0; j < WIDTH_X; j++) {
-			switch (dirCur) {
-			case D_UP:
-				wcout << (GetImage()[i][j]);
-				break;
-			case D_DOWN:
-				wcout << (GetImage()[WIDTH_Y - i - 1][j]);
-				break;
-			case D_LEFT:
-				wcout << (GetImage()[j][i]);
-				break;
-			case D_RIGHT:
-				wcout << (GetImage()[WIDTH_X - j - 1][i]);
-				break;
-			}
-		}
-	}
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-	*/
 }
 
 /* 坦克移动AI */
