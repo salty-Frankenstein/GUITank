@@ -15,8 +15,6 @@ Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
 
 void Bullet::Delete() {
 	del = true;
-	//SetConsoleCursorPosition(GetStdOHdl(), posLast);
-	//wcout << L'　';
 }
 
 void Bullet::Update() {

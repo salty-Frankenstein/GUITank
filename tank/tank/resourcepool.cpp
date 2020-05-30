@@ -1,5 +1,7 @@
 #include"resourcepool.h"
+#include"common.h"
 using namespace std;
+
 ResourcePool::ResourcePool(GFactory& g) : gf(&g) {
 	dao = make_shared<NormalDataAccess>();
 	//dao = make_shared<CompressedDataAccess>(".\\", "res");
@@ -7,6 +9,8 @@ ResourcePool::ResourcePool(GFactory& g) : gf(&g) {
 
 void ResourcePool::ResourceInit() {
 	gf->Create();
+
+	/* Bitmap resources */
 	bmp[BID_PLAYERTANK] = make_shared<Bitmap>(dao->GetFile(".\\res\\p1tankU.gif"));
 	bmp[BID_IRONWALL] = make_shared<Bitmap>(dao->GetFile(".\\res\\steel.gif"));
 	bmp[BID_BRICKWALL] = make_shared<Bitmap>(dao->GetFile(".\\res\\walls.gif"));
@@ -34,6 +38,11 @@ void ResourcePool::ResourceInit() {
 		b.second->Create();
 		gf->CreateBitmap(*b.second);
 	}
+
+	/* sound resources */
+	sound[SID_START] = make_shared<Music>(dao->GetFile(".\\res\\se\\start.wav"));
+	sound[SID_FIRE] = make_shared<Sound>(dao->GetFile(".\\res\\se\\fire.wav"));
+	sound[SID_BLAST] = make_shared<Sound>(dao->GetFile(".\\res\\se\\blast.wav"));
 }
 
 void ResourcePool::ResourceClear() {

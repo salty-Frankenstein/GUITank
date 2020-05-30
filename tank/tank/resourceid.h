@@ -27,3 +27,8 @@ constexpr ResourceID BID_NUM6 = 26;
 constexpr ResourceID BID_NUM7 = 27;
 constexpr ResourceID BID_NUM8 = 28;
 constexpr ResourceID BID_NUM9 = 29;
+
+constexpr ResourceID SID_START = 30;
+constexpr ResourceID SID_FIRE = 31;
+constexpr ResourceID SID_BLAST = 32;
+

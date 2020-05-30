@@ -53,7 +53,9 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 
 void Game::TestRun() {
 	stg->Run();
-
+	PLAYMUSIC(resPool, SID_START);
+	//((Music*)(resPool.sound[SID_START].get()))->active = true;
+	//resPool.sound[SID_START]->Play();
 	//Game::gameTime++;
 	//testnum->SetNumber(Game::gameTime);
 	//testBuf.Update();

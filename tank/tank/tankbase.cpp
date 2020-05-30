@@ -28,6 +28,7 @@ inline void TankBase::Show() {
 }
 
 void TankBase::Clean() {
+	/*
 	auto pos = posLast;
 	if (dirCur == D_UP || dirCur == D_DOWN) {
 		for (int i = 1; i <= widthY; i++) {
@@ -45,6 +46,7 @@ void TankBase::Clean() {
 				wcout << L'　';
 		}
 	}
+	*/
 }
 
 void TankBase::Delete() {
@@ -55,7 +57,8 @@ void TankBase::Delete() {
 		Game::player--;
 		Game::playerAlive = false;
 	}
-	Clean();
+	//Clean();
+	PLAYSOUND(*resPoolHdl, SID_BLAST);
 }
 
 int TankBase::GetWidthX()const {

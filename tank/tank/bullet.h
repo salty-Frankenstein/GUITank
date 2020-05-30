@@ -17,6 +17,5 @@ private:
 	COORD posLast;
 	Direction dir;
 	const static int SPEED = 1;
-	//const static wchar_t image = L'◆';
 	ResourceID image;
 };

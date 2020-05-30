@@ -38,6 +38,7 @@ void EnemyTank::Update() {
 
 	if (hp <= 0) {
 		Delete();
+		return;
 	}
 
 	posLast = posCur;

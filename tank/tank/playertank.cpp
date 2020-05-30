@@ -39,6 +39,7 @@ inline void PlayerTank::DrawTank() {
 inline void PlayerTank::Update() {
 	if (hp <= 0) {
 		Delete();
+		return;
 	}
 
 	posLast = posCur;
@@ -62,6 +63,7 @@ inline void PlayerTank::Update() {
 			// 如果炮口没有堵上
 			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr) {
 				bufferHdl->Push(make_shared<Bullet>(S_PLAYER_BULLET, bulPos.X, bulPos.Y, dirCur));
+				PLAYSOUND(*resPoolHdl, SID_FIRE);
 				shootTime = Game::GetGameTime();
 			}
 		}
