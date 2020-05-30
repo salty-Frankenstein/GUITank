@@ -13,11 +13,6 @@ bool Game::playerAlive = true;
 GameState Game::state = G_MENU;
 int Game::stageNow = 1;
 
-// TODO
-//Buffer testBuf;
-//shared_ptr<Number> testnum = make_shared<Number>(200, 200, 5, 0.8);
-//Background bg;
-
 Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
 	Stage::resPoolHdl = &resPool;
@@ -28,30 +23,8 @@ Game::Game(GFactory& g) : resPool(g) {
 
 void Game::ResourceInit() {
 	resPool.ResourceInit();
-	//stg = make_shared<Stage>(4, M_EASY);
-	//stg->StageInit();
 	Game::state = G_MENU;
-	//Sprite::bufferHdl = &testBuf;
-	/*
-	testBuf.Push(make_shared<PlayerTank>(15, 15));
-	testBuf.Push(make_shared<BrickWall>(100, 100));
-	testBuf.Push(make_shared<WaterWall>(125, 125));
-	testBuf.Push(make_shared<HeavyTank>(150, 150));
-	testBuf.Push(make_shared<LightTank>(200, 150));
-	testBuf.Push(make_shared<ArmoredCar>(250, 150));
-	testBuf.Push(make_shared<AntiTankGun>(300, 150));
-	testBuf.Push(testnum);
-	*/
-	//bg.Draw();
-	//testBuf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 100, 100, D_RIGHT));
 }
-
-/*
-shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
-	assert(id < resPool.bmp.size() &&  id >= 0);
-	return resPool.bmp[id];
-}
-*/
 
 bool Game::Run() {
 	gameTime++;
@@ -86,13 +59,6 @@ bool Game::Run() {
 		return true;
 	}
 	return false;
-	//stg->Run();
-	//menu.Run();
-	//((Music*)(resPool.sound[SID_START].get()))->active = true;
-	//resPool.sound[SID_START]->Play();
-	//testnum->SetNumber(Game::gameTime);
-	//testBuf.Update();
-	//testBuf.Show();
 }
 
 Result Game::GameProc() {
@@ -100,7 +66,6 @@ Result Game::GameProc() {
 	if (loadStage) {
 		stagePtr = make_shared<Stage>(stageNow, gameMode);
 		stagePtr->StageInit();
-		//assert(false);
 		loadStage = false;
 	}
 	

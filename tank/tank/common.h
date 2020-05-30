@@ -38,12 +38,6 @@ enum Mode {
 	M_HARD = 10
 };
 
-/* 获取标准输出句柄 */
-HANDLE GetStdOHdl();
-
-/* 设置标准输出位置 */
-void SetConsolePosition(COORD pos);
-
 /* (编译期)生成全为C的宽字符数组 */
 template <size_t N>
 struct CharArrayN : CharArrayN<N - 1> {
@@ -85,8 +79,3 @@ bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2);
 
 bool IsSamePos(COORD pos1, COORD pos2);
 
-/* 绘制字符文件 */
-void DrawTitle(COORD pos, std::string file);
-
-/* 设置控制台字符大小 */
-void SetFontSize(int x);

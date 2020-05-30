@@ -19,15 +19,6 @@ LPCWSTR stringToLPCWSTR(std::string orig) {
 	return wcstring;
 }
 
-HANDLE GetStdOHdl() {
-	static HANDLE stdoutHdl = GetStdHandle(STD_OUTPUT_HANDLE);
-	return stdoutHdl;
-}
-
-void SetConsolePosition(COORD pos) {
-	SetConsoleCursorPosition(GetStdOHdl(), pos);
-}
-
 bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2) {
 	double startX1 = pos1.X,
 		startY1 = pos1.Y,
@@ -42,24 +33,4 @@ bool IsHit(COORD pos1, int wx1, int wy1, COORD pos2, int wx2, int wy2) {
 
 bool IsSamePos(COORD pos1, COORD pos2) {
 	return pos1.X == pos2.X && pos1.Y == pos2.Y;
-}
-
-void DrawTitle(COORD pos, string file) {
-	ifstream fin(file);
-	while (!fin.eof()) {
-		SetConsolePosition(pos);
-		string s;
-		getline(fin, s);
-		cout << s << endl;
-		pos.Y++;
-	}
-}
-
-void SetFontSize(int x) {
-	CONSOLE_FONT_INFOEX info = { 0 }; // 以下设置字体
-	info.cbSize = sizeof(info);
-	info.dwFontSize.Y = x; // leave X as zero
-	info.FontWeight = FW_NORMAL;
-	//wcscpy(info.FaceName, L"Consolas");
-	SetCurrentConsoleFontEx(GetStdOHdl(), NULL, &info);
 }

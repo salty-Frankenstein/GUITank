@@ -34,7 +34,6 @@ void Stage::StageInit() {
 }
 
 Result Stage::Run() {
-	//assert(false);
 	if (Game::state == G_GAME) {
 		score->SetNumber(Game::enemyMax - Game::enemyKill);
 		playerNum->SetNumber(Game::player);
@@ -53,7 +52,6 @@ Result Stage::Run() {
 		}
 		if (Game::enemyMax == Game::enemyKill)
 			return R_WIN;
-		//Game::AddGameTime();
 		return R_CONTINUE;
 	}
 	return R_LOSE;

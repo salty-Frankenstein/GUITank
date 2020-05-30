@@ -5,7 +5,6 @@
 HWND hwnd;
 GFactory gf(hwnd);
 Game game(gf);
-Brush b;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
@@ -30,7 +29,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void init() {
 	game.ResourceInit();
-	game.GetGFHdl()->CreateBrush(b, _COLOR(Black));
 }
 
 bool Display() {

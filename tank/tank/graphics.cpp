@@ -6,40 +6,6 @@ Point::Point(float _x, float _y) {
 	y = _y;
 }
 
-/* class Text */
-bool Text::Create(float left, float top, float right, float bottom, float size) {
-	DWriteCreateFactory(
-		DWRITE_FACTORY_TYPE_SHARED,
-		__uuidof(IDWriteFactory),
-		reinterpret_cast<IUnknown**>(&pDWriteFactory));
-
-	HRESULT hr = pDWriteFactory->CreateTextFormat(
-		L"Arial",
-		NULL,
-		DWRITE_FONT_WEIGHT_NORMAL,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		size,
-		L"en-US",
-		&pTextFormat
-	);
-
-	layoutRect = D2D1::RectF(left, top, right, bottom);
-	return true;
-}
-
-IDWriteTextFormat* Text::GetFormat() {
-	return pTextFormat;
-}
-
-void Text::SetRect(float left, float top, float right, float bottom) {
-	layoutRect.left = left;
-	layoutRect.top = top;
-	layoutRect.right = right;
-	layoutRect.bottom = bottom;
-}
-
-
 /* class Bitmap */
 Bitmap::Bitmap() {
 	pBitmap = NULL;
@@ -136,29 +102,6 @@ IWICFormatConverter* Bitmap::GetConverter() {
 	return pConverter;
 }
 
-/* class Brush */
-Brush::Brush() {}
-
-ID2D1SolidColorBrush* Brush::GetBrush() {
-	return brush;
-}
-
-ID2D1SolidColorBrush** Brush::GetBrushPtr() {
-	return &brush;
-}
-
-
-/* class Layer */
-Layer::Layer() { layerParameters = D2D1::LayerParameters(); }
-
-ID2D1Layer* Layer::GetLayer() {
-	return layer;
-}
-
-ID2D1Layer** Layer::GetLayerPtr() {
-	return &layer;
-}
-
 
 /* class GFactory */
 GFactory::GFactory(HWND& _hwndptr) {
@@ -199,22 +142,6 @@ bool GFactory::Create() {
 	return true;
 }
 
-bool GFactory::CreateBrush(Brush &brush, COLOR color) {
-	HRESULT hr;
-	hr = hdl->CreateSolidColorBrush(
-		color,
-		brush.GetBrushPtr()
-	);
-
-	if (FAILED(hr)) {
-		MessageBox(*hwndptr, _T("Create brush failed!"), _T("Error"), 0);
-		return false;
-	}
-
-	return true;
-}
-
-
 bool GFactory::CreateBitmap(Bitmap &bmp) {
 	HRESULT hr;
 	hr = hdl->CreateBitmapFromWicBitmap(
@@ -229,24 +156,6 @@ bool GFactory::CreateBitmap(Bitmap &bmp) {
 	}
 	bmp.Release();
 	return true;
-}
-
-bool GFactory::CreateLayer(Layer &layer) {
-	HRESULT hr;
-	hr = hdl->CreateLayer(NULL, layer.GetLayerPtr());
-	if (FAILED(hr)) {
-		MessageBox(NULL, "Create layer failed!", "Error", 0);
-		return false;
-	}
-	return true;
-}
-
-void GFactory::PushLayer(Layer &layer) {
-	hdl->PushLayer(layer.layerParameters, layer.GetLayer());
-}
-
-void GFactory::PopLayer() {
-	hdl->PopLayer();
 }
 
 void GFactory::BeginDraw() {
@@ -264,37 +173,6 @@ bool GFactory::EndDraw() {
 
 void GFactory::Clear(COLOR color) {	// Clear background color to a color
 	hdl->Clear(color);
-}
-
-void GFactory::DrawLine(Brush &brush, float left, float top, float right, float bottom, float width = 1.0) {
-	hdl->DrawLine(D2D1::Point2F(left, top), D2D1::Point2F(right, bottom), brush.GetBrush(), width);
-}
-
-void GFactory::DrawRectangle(Brush &brush, float left, float top, float right, float bottom, float width = 1.0) {
-	hdl->DrawRectangle(
-		D2D1::RectF(left, top, right, bottom),
-		brush.GetBrush(),
-		width
-	);
-}
-
-void GFactory::FillRectangle(Brush &brush, float left, float top, float right, float bottom) {
-	hdl->FillRectangle(
-		D2D1::RectF(left, top, right, bottom),
-		brush.GetBrush()
-	);
-}
-
-void GFactory::DrawTriangle(Brush &brush, float x1, float y1, float x2, float y2, float x3, float y3, float width = 1.0) {
-	hdl->DrawLine(D2D1::Point2F(x1, y1), D2D1::Point2F(x2, y2), brush.GetBrush(), width);
-	hdl->DrawLine(D2D1::Point2F(x2, y2), D2D1::Point2F(x3, y3), brush.GetBrush(), width);
-	hdl->DrawLine(D2D1::Point2F(x3, y3), D2D1::Point2F(x1, y1), brush.GetBrush(), width);
-}
-
-void GFactory::DrawTriangle(Brush &brush, Point p1, Point p2, Point p3, float width) {
-	hdl->DrawLine(D2D1::Point2F(p1.x, p1.y), D2D1::Point2F(p2.x, p2.y), brush.GetBrush(), width);
-	hdl->DrawLine(D2D1::Point2F(p2.x, p2.y), D2D1::Point2F(p3.x, p3.y), brush.GetBrush(), width);
-	hdl->DrawLine(D2D1::Point2F(p3.x, p3.y), D2D1::Point2F(p1.x, p1.y), brush.GetBrush(), width);
 }
 
 void GFactory::DrawBitmap(Bitmap &bmp, float left, float top, float right, float bottom) {
@@ -324,24 +202,4 @@ void GFactory::DrawBitmap(Bitmap &bmp, float left, float top, float right, float
 	hdl->FillGeometry(Grec, brush);
 	hdl->SetTransform(oriTransMat);
 	SAFE_RELEASE(brush);
-}
-
-void GFactory::Write(Text &text, Brush &brush, std::string s) {
-	hdl->DrawText(
-		stringToLPCWSTR(s),
-		s.length(),
-		text.GetFormat(),
-		text.layoutRect,
-		brush.GetBrush()
-	);
-}
-
-void GFactory::WriteW(Text &text, Brush &brush, LPCWSTR s) {
-	hdl->DrawText(
-		s,
-		wcslen(s),
-		text.GetFormat(),
-		text.layoutRect,
-		brush.GetBrush()
-	);
 }

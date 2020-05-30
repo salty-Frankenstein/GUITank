@@ -65,9 +65,6 @@ void Bullet::Update() {
 		return IsHit(this->GetPos(), 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH)
 			|| IsHit(x, 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH)
 			|| IsHit(y, 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH);
-		return IsSamePos(this->GetPos(), s->GetPos())	//子弹命中的左右两格也命中
-			|| IsSamePos(x, s->GetPos())
-			|| IsSamePos(y, s->GetPos());
 	};
 
 	/* 判断子弹是否命中游戏对象 */

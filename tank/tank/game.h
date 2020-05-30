@@ -18,7 +18,6 @@ public:
 	Game(GFactory&);
 	bool Run();
 	void ResourceInit();
-	//std::shared_ptr<Bitmap> GetBitmapHdl(ResourceID id);
 
 	static GameTime GetGameTime();
 	static void AddGameTime();
@@ -38,14 +37,11 @@ public:
 	GFactory* GetGFHdl();
 	void ClearFile();
 
-	// TODO
-	//std::shared_ptr<Stage> stg;
-
 private:
 	std::shared_ptr<Stage> stagePtr;
 	Menu menu;
 	static GameTime gameTime;
-	Result GameProc();	//lose:-1 win:1 continue:0
+	Result GameProc();
 };
 
 #endif 

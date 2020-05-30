@@ -17,36 +17,7 @@ TankBase::TankBase(SpriteType type, int _widthX, int _widthY,
 }
 
 inline void TankBase::Show() {
-	//do the cleaning
-	/*
-	if (IsSamePos(posCur,posLast) && dirLast == dirCur
-		&& Game::GetGameTime()%REDRAW != 0)return;
-	Clean();
-	*/
-	//draw a new frame
 	DrawTank();
-}
-
-void TankBase::Clean() {
-	/*
-	auto pos = posLast;
-	if (dirCur == D_UP || dirCur == D_DOWN) {
-		for (int i = 1; i <= widthY; i++) {
-			SetConsoleCursorPosition(GetStdOHdl(), pos);
-			pos.Y++;
-			for (int j = 1; j <= widthX; j++)
-				wcout << L'　';
-		}
-	}
-	else {
-		for (int i = 1; i <= widthX; i++) {
-			SetConsoleCursorPosition(GetStdOHdl(), pos);
-			pos.Y++;
-			for (int j = 1; j <= widthY; j++)
-				wcout << L'　';
-		}
-	}
-	*/
 }
 
 void TankBase::Delete() {

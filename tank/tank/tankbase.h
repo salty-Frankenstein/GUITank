@@ -21,7 +21,6 @@ public:
 	int GetWidthY()const;
 	void GetDamage(int damage);
 protected:
-	void Clean();	//clean the drawing
 	Direction dirLast;
 	Direction dirCur;
 	COORD posLast;		//上一帧的位置

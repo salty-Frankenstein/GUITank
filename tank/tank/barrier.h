@@ -21,21 +21,18 @@ protected:
 class IronWall :public Barrier {
 public:
 	IronWall(int x, int y);
-	//void Show();
 };
 
 /* 砖墙 */
 class BrickWall :public Barrier {
 public:
 	BrickWall(int x, int y);
-	//void Show();
 };
 
 /* 水域 */
 class WaterWall :public Barrier {
 public:
 	WaterWall(int x, int y);
-	//void Show();
 };
 
 /* 玩家的基地 */

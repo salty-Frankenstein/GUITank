@@ -42,22 +42,5 @@ void Menu::Run() {
 				}
 			}
 		}
-		return;
-		//TODO
-		if (_kbhit()) {
-			switch (_getch()) {
-			case 72:nowActive = (nowActive + BUTTON_NUM - 1) % BUTTON_NUM; break;
-			case 80:nowActive = (nowActive + 1) % BUTTON_NUM; break;
-			case 'z':
-				switch (MenuButton(nowActive)) {
-				case B_EASY:Game::gameMode = M_EASY; Game::state = G_GAME; break;
-				case B_NORMAL:Game::gameMode = M_NORMAL; Game::state = G_GAME; break;
-				case B_HARD:Game::gameMode = M_HARD; Game::state = G_GAME; break;
-				case B_EXIT:Game::state = G_EXIT; break;
-				}
-				break;
-			default: break;
-			}
-		}
 	}
 }
