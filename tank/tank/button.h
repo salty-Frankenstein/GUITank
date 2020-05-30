@@ -7,12 +7,15 @@
 /* 按钮类 */
 class Button :public Sprite {
 public:
-	Button(int x, int y, std::string name);
+	Button(int x, int y, int width, int height, ResourceID nameOn, ResourceID nameOff);
 	void Show();
 	void Update();
 	void Delete();
 	bool isActive;
 private:
-	std::string name;
+	int width;
+	int height;
+	ResourceID nameOn;
+	ResourceID nameOff;
 };
 

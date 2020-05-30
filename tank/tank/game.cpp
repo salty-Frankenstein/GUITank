@@ -20,6 +20,7 @@ Background bg;
 Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
 	Stage::resPoolHdl = &resPool;
+	Menu::resPoolHdl = &resPool;
 	// TODO
 	
 }
@@ -28,7 +29,7 @@ void Game::ResourceInit() {
 	resPool.ResourceInit();
 	stg = make_shared<Stage>(4, M_EASY);
 	stg->StageInit();
-	Game::state = G_GAME;
+	Game::state = G_MENU;
 	//Sprite::bufferHdl = &testBuf;
 	/*
 	testBuf.Push(make_shared<PlayerTank>(15, 15));
@@ -52,11 +53,11 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 */
 
 void Game::TestRun() {
-	stg->Run();
-	PLAYMUSIC(resPool, SID_START);
+	//stg->Run();
+	menu.Run();
 	//((Music*)(resPool.sound[SID_START].get()))->active = true;
 	//resPool.sound[SID_START]->Play();
-	//Game::gameTime++;
+	Game::gameTime++;
 	//testnum->SetNumber(Game::gameTime);
 	//testBuf.Update();
 	//testBuf.Show();

@@ -27,6 +27,17 @@ void ResourcePool::ResourceInit() {
 	bmp[BID_ARMORED_B] = make_shared<Bitmap>(dao->GetFile(".\\res\\armoredBlue.png"));
 	bmp[BID_ANTI] = make_shared<Bitmap>(dao->GetFile(".\\res\\anti.png"));
 	bmp[BID_BACKGROUND] = make_shared<Bitmap>(dao->GetFile(".\\res\\bg.png"));
+	bmp[BID_COVER] = make_shared<Bitmap>(dao->GetFile(".\\res\\cover.png"));
+
+	//buttons
+	bmp[BID_EASY0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\easy0.png"));
+	bmp[BID_EASY1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\easy1.png"));
+	bmp[BID_NORMAL0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\normal0.png"));
+	bmp[BID_NORMAL1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\normal1.png"));
+	bmp[BID_HARD0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\hard0.png"));
+	bmp[BID_HARD1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\hard1.png"));
+	bmp[BID_EXIT0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\exit0.png"));
+	bmp[BID_EXIT1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\exit1.png"));
 
 	//number images
 	for (auto i = BID_NUM0; i <= BID_NUM9; i++) {

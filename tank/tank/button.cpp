@@ -2,18 +2,19 @@
 #include<iostream>
 using namespace std;
 
-Button::Button(int x, int y, string _name)
+Button::Button(int x, int y, int _width, int _height, ResourceID _nameOn, ResourceID _nameOff)
 	:Sprite(x, y) {
 	isActive = true;
-	name = _name;
+	nameOn = _nameOn;
+	nameOff = _nameOff;
+	width = _width;
+	height = _height;
 }
 
 void Button::Show() {
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	if (isActive)SetConsoleTextAttribute(GetStdOHdl(), 71);
-	else SetConsoleTextAttribute(GetStdOHdl(), 7);
-	cout << name;
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
+	if (isActive)
+		DRAWBITMAP(*resPoolHdl, nameOn, posCur.X, posCur.Y, posCur.X + width, posCur.Y + height);
+	else DRAWBITMAP(*resPoolHdl, nameOff, posCur.X, posCur.Y, posCur.X + width, posCur.Y + height);
 }
 
 void Button::Update() {}

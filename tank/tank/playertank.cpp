@@ -51,7 +51,7 @@ inline void PlayerTank::Update() {
 	if (getKey['Z']) {
 		//连发限制
 		auto bulPos = posCur;
-		if (!(Game::GetGameTime() - shootTime <= 15)) {
+		if (!(Game::GetGameTime() - shootTime <= 10)) {
 			switch (dirCur) {
 			case D_UP:bulPos.X += widthX / 2 - 5; break;
 			case D_DOWN:bulPos.X += widthX / 2 - 5; bulPos.Y += widthY; break;

@@ -27,6 +27,7 @@ Stage::Stage(int no, Mode _mode) {
 }
 
 void Stage::StageInit() {
+	PLAYMUSIC(*resPoolHdl, SID_START);
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);

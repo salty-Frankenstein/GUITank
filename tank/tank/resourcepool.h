@@ -19,7 +19,7 @@
 #define PLAYMUSIC(resPool, id) \
 	do{ \
 		((Music*)((resPool).sound[(id)].get()))->active = true; \
-		resPool.sound[(id)]->Play(); \
+		(resPool).sound[(id)]->Play(); \
 	}while(0)
 
 #define PLAYSOUND(resPool, id) ((resPool).sound[(id)]->Play())
