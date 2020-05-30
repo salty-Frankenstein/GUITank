@@ -29,6 +29,9 @@ void Game::ResourceInit() {
 	testBuf.Push(make_shared<BrickWall>(100, 100));
 	testBuf.Push(make_shared<WaterWall>(125, 125));
 	testBuf.Push(make_shared<HeavyTank>(150, 150));
+	testBuf.Push(make_shared<LightTank>(200, 150));
+	testBuf.Push(make_shared<ArmoredCar>(250, 150));
+	testBuf.Push(make_shared<AntiTankGun>(300, 150));
 	testBuf.Push(testnum);
 	bg.Draw();
 	//testBuf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 100, 100, D_RIGHT));

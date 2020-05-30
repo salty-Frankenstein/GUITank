@@ -54,10 +54,10 @@ inline void PlayerTank::Update() {
 		auto bulPos = posCur;
 		if (!(Game::GetGameTime() - shootTime <= 15)) {
 			switch (dirCur) {
-			case D_UP:bulPos.X += widthX/2; break;
-			case D_DOWN:bulPos.X += widthX/2; bulPos.Y += widthY; break;
-			case D_LEFT: bulPos.Y += widthY/2; break;
-			case D_RIGHT:bulPos.X += widthX; bulPos.Y += widthY/2; break;
+			case D_UP:bulPos.X += widthX / 2 - 5; break;
+			case D_DOWN:bulPos.X += widthX / 2 - 5; bulPos.Y += widthY; break;
+			case D_LEFT: bulPos.Y += widthY / 2 - 5; break;
+			case D_RIGHT:bulPos.X += widthX; bulPos.Y += widthY / 2 - 5; break;
 			}
 			// 如果炮口没有堵上
 			if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr) {

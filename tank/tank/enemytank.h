@@ -25,7 +25,7 @@ public:
 private:
 	const static int HP = 1;
 	const static int DAMAGE = 1;
-	const static int SPEED = 13;
+	const static int SPEED = 3;
 	const static int SHOOT_SPEED = 1;
 };
 
@@ -37,7 +37,7 @@ public:
 private:
 	const static int HP = 2;
 	const static int DAMAGE = 1;
-	const static int SPEED = 17;
+	const static int SPEED = 2;
 	const static int SHOOT_SPEED = 1;
 	ResourceID imageG;
 	ResourceID imageB;
@@ -52,7 +52,7 @@ public:
 private:
 	const static int HP = 3;
 	const static int DAMAGE = 1;
-	const static int SPEED = 13;
+	const static int SPEED = 2;
 	const static int SHOOT_SPEED = 1;
 	ResourceID imageR;
 	ResourceID imageG;
@@ -67,7 +67,7 @@ public:
 private:
 	const static int HP = 1;
 	const static int DAMAGE = 1;
-	const static int SPEED = 8;
+	const static int SPEED = 3;
 	const static int SHOOT_SPEED = 15;
 	ResourceID image;
 };

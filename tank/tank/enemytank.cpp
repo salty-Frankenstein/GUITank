@@ -39,66 +39,61 @@ void EnemyTank::Update() {
 	if (hp <= 0) {
 		Delete();
 	}
-	// TODO
-	return;
-	
-	
-	/* 控制速度 */
-	if (Game::GetGameTime() % (20 - speed) == 0) {
-		posLast = posCur;
-		dirLast = dirCur;
 
-		/* 移动 */
-		switch (randomInt(1, 20)) {
-		case 1:dirCur = D_UP; break;
-		case 2:dirCur = D_LEFT; break;
-		case 3:dirCur = D_RIGHT; break;
-		case 4:dirCur = D_DOWN; break;
-		default:GoStraight(); break;
+	posLast = posCur;
+	dirLast = dirCur;
+
+	/* 移动 */
+	switch (randomInt(1, 150)) {
+	case 1:dirCur = D_UP; break;
+	case 2:dirCur = D_LEFT; break;
+	case 3:dirCur = D_RIGHT; break;
+	case 4:dirCur = D_DOWN; break;
+	default:GoStraight(); break;
+	}
+
+	/* 如果移动位置 */
+	if (!IsSamePos(posCur, posLast)) {
+		/* 判断新位置是否有其他坦克或障碍物 */
+		auto res = bufferHdl->Any(
+			[=](shared_ptr<Sprite> s)->bool {
+			if (IsBarrier(s->GetType()) &&
+				IsHit(this->GetPos(), TANK_WIDTH, TANK_WIDTH, 
+					s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH))
+				return true;
+			if ((IsTank(s) && s.get() != this)
+				&& IsHit(this->GetPos(), TANK_WIDTH, TANK_WIDTH,
+					s->GetPos(), TANK_WIDTH, TANK_WIDTH))
+				return true;
+			return false;
 		}
-
-		/* 如果移动位置 */
-		if (!IsSamePos(posCur, posLast)) {
-			/* 判断新位置是否有其他坦克或障碍物 */
-			auto res = bufferHdl->Any(
-				[=](shared_ptr<Sprite> s)->bool {
-					if (IsBarrier(s->GetType()) &&
-						IsHit(this->GetPos(), 3, 3, s->GetPos(), 1, 1))
-						return true;
-					if ((IsTank(s) && s.get() != this)
-						&& IsHit(this->GetPos(), 3, 3, s->GetPos(), 3, 3))
-						return true;
-					return false;
-				}
-			);
-			/* 如果有则不移动 */
-			if (res != nullptr) {
-				posCur = posLast;
-			}
+		);
+		/* 如果有则不移动 */
+		if (res != nullptr) {
+			posCur = posLast;
 		}
 	}
 
 	/* 发射子弹 */
-	if (Game::GetGameTime() % 10 != 0 && randomInt(1, 30 - shootSpeed) == 1) {
+	if (Game::GetGameTime() % 10 == 0 && randomInt(1, 20 - shootSpeed) == 1) {
 		auto bulPos = posCur;
 		switch (dirCur) {
-		case D_UP:bulPos.X += 2; break;
-		case D_DOWN:bulPos.X += 2; bulPos.Y += 2; break;
-		case D_LEFT: bulPos.Y++; break;
-		case D_RIGHT:bulPos.X += 4; bulPos.Y++; break;
+		case D_UP:bulPos.X += widthX / 2 - 5; break;
+		case D_DOWN:bulPos.X += widthX / 2 - 5; bulPos.Y += widthY; break;
+		case D_LEFT: bulPos.Y += widthY / 2 - 5; break;
+		case D_RIGHT:bulPos.X += widthX; bulPos.Y += widthY / 2 - 5; break;
 		}
-		/* 如果炮口没有堵上 */
-		if (bufferHdl->Any([=](shared_ptr<Sprite> s) {return IsSamePos(bulPos, s->GetPos()); }) == nullptr)
-			bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
+		bufferHdl->Push(make_shared<Bullet>(S_ENEMY_BULLET, bulPos.X, bulPos.Y, dirCur));
 	}
+
 }
 
 inline void EnemyTank::GoStraight() {
 	switch (dirCur) {
-	case D_UP:posCur.Y--; break;
-	case D_DOWN:posCur.Y++; break;
-	case D_LEFT:posCur.X -= 2; break;
-	case D_RIGHT:posCur.X += 2; break;
+	case D_UP:posCur.Y -= speed; break;
+	case D_DOWN:posCur.Y += speed; break;
+	case D_LEFT:posCur.X -= speed; break;
+	case D_RIGHT:posCur.X += speed; break;
 	}
 }
 
