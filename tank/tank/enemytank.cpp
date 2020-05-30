@@ -35,12 +35,13 @@ void EnemyTank::DrawTank() {
 /* 坦克移动AI */
 void EnemyTank::Update() {
 	static RandomInt randomInt;
-	hp = randomInt(1, 3);
-	// TODO
-	return;
+
 	if (hp <= 0) {
 		Delete();
 	}
+	// TODO
+	return;
+	
 	
 	/* 控制速度 */
 	if (Game::GetGameTime() % (20 - speed) == 0) {

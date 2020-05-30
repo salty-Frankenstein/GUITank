@@ -1,5 +1,6 @@
 ﻿#include"bullet.h"
 #include"tankbase.h"
+#include"barrier.h"
 using namespace std;
 
 Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
@@ -14,8 +15,8 @@ Bullet::Bullet(SpriteType type, int _x, int _y, Direction _dir)
 
 void Bullet::Delete() {
 	del = true;
-	SetConsoleCursorPosition(GetStdOHdl(), posLast);
-	wcout << L'　';
+	//SetConsoleCursorPosition(GetStdOHdl(), posLast);
+	//wcout << L'　';
 }
 
 void Bullet::Update() {
@@ -27,8 +28,7 @@ void Bullet::Update() {
 	case D_LEFT:posCur.X -= BULLET_SPEED; break;
 	case D_RIGHT:posCur.X += BULLET_SPEED; break;
 	}
-	// TODO
-	return;
+
 	/* 判断是当前子弹的目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
 		if (s->GetType() == S_PLAYER_BASE)return true;
@@ -61,9 +61,12 @@ void Bullet::Update() {
 		if (s->GetType() != S_DESTORYABLE)return false;
 		auto x = this->GetPos(), y = this->GetPos();
 		switch (this->GetDirection()) {
-		case D_UP:case D_DOWN:x.X -= 2; y.X += 2; break;
-		case D_LEFT:case D_RIGHT:x.Y++; y.Y--; break;
+		case D_UP:case D_DOWN:x.X -= BARRIER_WIDTH; y.X += BARRIER_WIDTH; break;
+		case D_LEFT:case D_RIGHT:x.Y += BARRIER_WIDTH; y.Y -= BARRIER_WIDTH; break;
 		}
+		return IsHit(this->GetPos(), 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH)
+			|| IsHit(x, 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH)
+			|| IsHit(y, 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH);
 		return IsSamePos(this->GetPos(), s->GetPos())	//子弹命中的左右两格也命中
 			|| IsSamePos(x, s->GetPos())
 			|| IsSamePos(y, s->GetPos());
@@ -76,7 +79,7 @@ void Bullet::Update() {
 			return IsHit(this->GetPos(), 1, 1, s->GetPos(), 3, 3);
 		case S_ENEMY_BULLET:
 		case S_UNDESTORYABLE:
-			return IsSamePos(this->GetPos(), s->GetPos());
+			return IsHit(this->GetPos(), 1, 1, s->GetPos(), BARRIER_WIDTH, BARRIER_WIDTH);
 		case S_DESTORYABLE:
 			return destoryableHit(s);
 		case S_ENEMY:
@@ -90,8 +93,8 @@ void Bullet::Update() {
 	/* 判断对象缓存中是否有对象被命中 */
 	auto res = bufferHdl->Any(
 		[=](shared_ptr<Sprite> s) -> bool {
-			return isEnemy(s) && isHit(s);
-		}
+		return isEnemy(s) && isHit(s);
+	}
 	);
 
 	/* 如果被命中 */
@@ -112,6 +115,7 @@ void Bullet::Update() {
 		}
 		Delete();	//命中后删除子弹
 	}
+	
 }
 
 void Bullet::Show() {
