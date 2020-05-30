@@ -37,11 +37,11 @@ void init() {
 
 bool Display() {
 	game.GetGFHdl()->BeginDraw();
-	game.GetGFHdl()->Clear(_COLOR(White));
-	game.GetGFHdl()->DrawLine(b, 1, 1, 200, 200, 1);
+	game.GetGFHdl()->Clear(_COLOR(Black));
+	//game.GetGFHdl()->DrawLine(b, 1, 1, 200, 200, 1);
 	//game.GetGFHdl()->DrawBitmap(GETBITMAP(game.resPool, BID_PLAYERTANK), 1, 1, 100, 100);
 	game.TestRun();
-	game.GetGFHdl()->DrawRectangle(b, 1, 1, 100, 100, 2);
+	//game.GetGFHdl()->DrawRectangle(b, 1, 1, 100, 100, 2);
 	game.GetGFHdl()->EndDraw();
 	return true;
 }

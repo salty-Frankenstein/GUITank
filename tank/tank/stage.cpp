@@ -1,16 +1,21 @@
 #include"stage.h"
 #include"game.h"
+#include<cassert>
 using namespace std;
+
+ResourcePool* Stage::resPoolHdl = nullptr;
 
 Stage::Stage(int no, Mode _mode) {
 	Sprite::bufferHdl = &buf;
-	stageNum = make_shared<Number>((GRID_X + 11) * 2, 2, 2);
+	
+	stageNum = make_shared<Number>((GRID_X + 11) * BARRIER_WIDTH, 2 * BARRIER_WIDTH, 2);
 	stageNum->SetNumber(no);
-	score = make_shared<Number>((GRID_X + 11) * 2, 10, 2);
-	playerNum = make_shared<Number>((GRID_X + 11) * 2, 18, 2);
+	score = make_shared<Number>((GRID_X + 11) * BARRIER_WIDTH, 10 * BARRIER_WIDTH, 2);
+	playerNum = make_shared<Number>((GRID_X + 11) * BARRIER_WIDTH, 18 * BARRIER_WIDTH, 2);
 	buf.Push(stageNum);
 	buf.Push(score);
 	buf.Push(playerNum);
+	
 	Game::playerAlive = false;
 	Game::player = 5;
 	Game::enemyNow = 0;
@@ -18,16 +23,17 @@ Stage::Stage(int no, Mode _mode) {
 	Game::enemyKill = 0;
 	LoadStage(no);
 	mode = _mode;
+	
 }
 
-bool Stage::Run() {
-	//SetFontSize(14);
-	//system("cls");
+void Stage::StageInit() {
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
+}
 
-	while (Game::state == G_GAME) {
+bool Stage::Run() {
+	if (Game::state == G_GAME) {
 		score->SetNumber(Game::enemyMax - Game::enemyKill);
 		playerNum->SetNumber(Game::player);
 		/* 玩家重生 */
@@ -45,30 +51,32 @@ bool Stage::Run() {
 		}
 		if (Game::enemyMax == Game::enemyKill)
 			return true;
-		Sleep(20);
 		Game::AddGameTime();
 	}
 	return false;
 }
 
 void Stage::LoadStage(int no) {	//读取关卡文件
-	string file = "./stage/" + to_string(no) + ".txt";
-	ifstream fin(file);
+	string file = ".\\res\\stage\\" + to_string(no) + ".txt";
+	assert(resPoolHdl != nullptr);
+	assert(resPoolHdl->dao != nullptr);
+	ifstream fin(resPoolHdl->dao->GetFile(file));
+	assert(fin.is_open());
 	fin >> Game::enemyMax;
 	string s;
 	do {
 		getline(fin, s);
 	} while (s[0] != '$');
-	for (SHORT i = 1; i <= GRID_Y-2; i++) {
+	for (SHORT i = 1; i <= GRID_Y - 2; i++) {
 		getline(fin, s);
 		for (SHORT j = 1; j <= GRID_X - 2; j++) {
 			switch (s[j]) {	//在对象池添加相应对象
-			case '#':buf.Push(make_shared<BrickWall>(2 * j, i)); break;
-			case '=':buf.Push(make_shared<IronWall>(2 * j, i)); break;
-			case '~':buf.Push(make_shared<WaterWall>(2 * j, i)); break;
-			case 'P':playerPoint = { 2 * j, i }; break;
-			case 'E':enemyPoint.push_back({ 2 * j, i }); break;
-			case 'B':buf.Push(make_shared<PlayerBase>(2 * j, i)); break;
+			case '#':buf.Push(make_shared<BrickWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
+			case '=':buf.Push(make_shared<IronWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
+			case '~':buf.Push(make_shared<WaterWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
+			case 'P':playerPoint = { j * BARRIER_WIDTH, i * BARRIER_WIDTH }; break;
+			case 'E':enemyPoint.push_back({ j * BARRIER_WIDTH, i * BARRIER_WIDTH }); break;
+			//case 'B':buf.Push(make_shared<PlayerBase>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
 			default:break;
 			}
 		}
@@ -79,8 +87,12 @@ void Stage::AddEnemy() {
 	static RandomInt randomInt;
 	for (auto i = enemyPoint.begin(); i != enemyPoint.end(); i++) {
 		/* 判断还有敌人没有生成，且生成点上没有其他对象 */
-		if (Game::enemyMax - Game::enemyNow > 0 && Game::GetGameTime() % 10 == 0 && randomInt(1, mode) == 1
-			&& buf.Any([=](shared_ptr<Sprite> s) { return IsTank(s) && IsHit(*i, 3, 3, s->GetPos(), 3, 3); }) == nullptr) {
+		if (Game::enemyMax - Game::enemyNow > 0 
+			&& Game::GetGameTime() % 10 == 0 && randomInt(1, mode) == 1
+			&& buf.Any([=](shared_ptr<Sprite> s) { 
+				return IsTank(s) && IsHit(*i, TANK_WIDTH, TANK_WIDTH, 
+					s->GetPos(), TANK_WIDTH, TANK_WIDTH); }) == nullptr) 
+		{
 			switch (randomInt(1,4)) {
 			case 1:buf.Push(make_shared<LightTank>(i->X, i->Y)); break;
 			case 2:buf.Push(make_shared<ArmoredCar>(i->X, i->Y)); break;

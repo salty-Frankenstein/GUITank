@@ -26,7 +26,7 @@ void ResourcePool::ResourceInit() {
 	//number images
 	for (auto i = BID_NUM0; i <= BID_NUM9; i++) {
 		string path;
-		path += ".\\res\\" + to_string(i - BID_NUM0) + ".png";
+		path += ".\\res\\font\\" + to_string(i - BID_NUM0) + ".png";
 		bmp[i] = make_shared<Bitmap>(dao->GetFile(path));
 	}
 

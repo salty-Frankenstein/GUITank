@@ -19,12 +19,18 @@ Background bg;
 
 Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
+	Stage::resPoolHdl = &resPool;
 	// TODO
-	Sprite::bufferHdl = &testBuf;
+	
 }
 
 void Game::ResourceInit() {
 	resPool.ResourceInit();
+	stg = make_shared<Stage>(4, M_EASY);
+	stg->StageInit();
+	Game::state = G_GAME;
+	//Sprite::bufferHdl = &testBuf;
+	/*
 	testBuf.Push(make_shared<PlayerTank>(15, 15));
 	testBuf.Push(make_shared<BrickWall>(100, 100));
 	testBuf.Push(make_shared<WaterWall>(125, 125));
@@ -33,7 +39,8 @@ void Game::ResourceInit() {
 	testBuf.Push(make_shared<ArmoredCar>(250, 150));
 	testBuf.Push(make_shared<AntiTankGun>(300, 150));
 	testBuf.Push(testnum);
-	bg.Draw();
+	*/
+	//bg.Draw();
 	//testBuf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 100, 100, D_RIGHT));
 }
 
@@ -45,10 +52,12 @@ shared_ptr<Bitmap> Game::GetBitmapHdl(ResourceID id) {
 */
 
 void Game::TestRun() {
-	Game::gameTime++;
-	testnum->SetNumber(Game::gameTime);
-	testBuf.Update();
-	testBuf.Show();
+	stg->Run();
+
+	//Game::gameTime++;
+	//testnum->SetNumber(Game::gameTime);
+	//testBuf.Update();
+	//testBuf.Show();
 }
 
 void Game::Run() {

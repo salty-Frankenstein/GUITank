@@ -4,7 +4,7 @@
 
 const int LAYER_BULLET = 3;
 const int BULLET_WIDTH = 10;
-const int BULLET_SPEED = 5;
+const int BULLET_SPEED = 7;
 /* 子弹类，可以实例化为玩家或敌人的子弹 */
 class Bullet :public Sprite {
 public:

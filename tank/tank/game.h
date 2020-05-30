@@ -38,6 +38,10 @@ public:
 	ResourcePool resPool;
 	GFactory* GetGFHdl();
 	void ClearFile();
+
+	// TODO
+	std::shared_ptr<Stage> stg;
+
 private:
 	std::shared_ptr<Stage> stagePtr;
 	Menu menu;

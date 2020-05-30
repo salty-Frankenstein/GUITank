@@ -1,22 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include "gameobject.h"
+#include "resourcepool.h"
 #include<string>
 #include<fstream>
 #include<list>
 
-/* ¹Ø¿¨Àà£¬×Ô¶¯ÄÚ´æ¹ÜÀí */
+/* å…³å¡ç±»ï¼Œè‡ªåŠ¨å†…å­˜ç®¡ç† */
 class Stage {
 public:
 	Stage(int no, Mode mode);
+	void StageInit();
 	bool Run();
+	static ResourcePool* resPoolHdl;	//æ¸¸æˆèµ„æºæ± å¥æŸ„ï¼Œå®ç°èµ„æºçš„è·å–
 private:
-	void LoadStage(int no);	//ÔØÈë¹Ø¿¨
+	void LoadStage(int no);	//è½½å…¥å…³å¡
 	void AddEnemy();
 	std::shared_ptr<Number> score;
 	std::shared_ptr<Number> playerNum;
 	std::shared_ptr<Number> stageNum;
-	std::list<COORD> enemyPoint;	//µĞÈËµÄÉú³Éµã
-	COORD playerPoint;				//Íæ¼ÒµÄ³öÉúµã
+	std::list<COORD> enemyPoint;	//æ•Œäººçš„ç”Ÿæˆç‚¹
+	COORD playerPoint;				//ç©å®¶çš„å‡ºç”Ÿç‚¹
 	Buffer buf;
 	Mode mode;
 };
