@@ -7,7 +7,7 @@
 #include <iostream>
 
 const int LAYER_TANK = 3;
-
+const int TANK_WIDTH = 45;
 /* 坦克基类 */
 class TankBase :public Sprite {
 public:

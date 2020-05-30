@@ -3,8 +3,8 @@
 #include "bullet.h"
 
 /* 长宽 */
-const int PLAYERTANK_X = 45;
-const int PLAYERTANK_Y = 45;
+const int PLAYERTANK_X = TANK_WIDTH;
+const int PLAYERTANK_Y = TANK_WIDTH;
 
 const int PLAYERTANK_HP = 1;
 const int PLAYERTANK_DAMAGE = 1;

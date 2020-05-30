@@ -18,10 +18,11 @@ TankBase::TankBase(SpriteType type, int _widthX, int _widthY,
 
 inline void TankBase::Show() {
 	//do the cleaning
+	/*
 	if (IsSamePos(posCur,posLast) && dirLast == dirCur
 		&& Game::GetGameTime()%REDRAW != 0)return;
 	Clean();
-	
+	*/
 	//draw a new frame
 	DrawTank();
 }
