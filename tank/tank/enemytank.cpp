@@ -2,20 +2,35 @@
 #include"game.h"
 using namespace std;
 
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> EnemyTank::image = { {
-{ L'　',L'█',L'　' },
-{ L'█',L'█',L'█' },
-{ L'█',L'卐',L'█' }}
-};
-
 EnemyTank::EnemyTank(int x, int y, int hp, int damage, int speed, int _shootSpeed)
-	: TankBase(S_ENEMY, WIDTH_X, WIDTH_Y, x, y, hp, damage, speed), shootSpeed(_shootSpeed) {}
+	: TankBase(S_ENEMY, WIDTH_X, WIDTH_Y, x, y, hp, damage, speed), shootSpeed(_shootSpeed) {
+	image = BID_LIGHT;
+}
 
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> EnemyTank::GetImage() {
+ResourceID EnemyTank::GetImage() {
 	return image;
 }
 
 void EnemyTank::DrawTank() {
+	float angle;
+
+	switch (dirCur)
+	{
+	case D_UP:
+		angle = 0;
+		break;
+	case D_DOWN:
+		angle = 180;
+		break;
+	case D_LEFT:
+		angle = 270;
+		break;
+	case D_RIGHT:
+		angle = 90;
+		break;
+	}
+	DRAWBITMAP_R(*resPoolHdl, GetImage(), posCur.X, posCur.Y, posCur.X + widthX, posCur.Y + widthY, angle);
+	/*
 	auto pos = posCur;
 	switch (hp) {
 	case 1:SetConsoleTextAttribute(GetStdOHdl(), 7); break;
@@ -43,12 +58,14 @@ void EnemyTank::DrawTank() {
 		}
 	}
 	SetConsoleTextAttribute(GetStdOHdl(), 7);
+	*/
 }
 
 /* 坦克移动AI */
 void EnemyTank::Update() {
 	static RandomInt randomInt;
-
+	hp = randomInt(1, 3);
+	return;
 	if (hp <= 0) {
 		Delete();
 	}
@@ -115,31 +132,35 @@ inline void EnemyTank::GoStraight() {
 LightTank::LightTank(int x, int y)
 	:EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {}
 
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> ArmoredCar::image = { {
-	{ L'　',L'█',L'　' },
-{ L'●',L'█',L'●' },
-{ L'●',L'卐',L'●' } }
-};
-
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> ArmoredCar::GetImage() {
-	return image;
+ArmoredCar::ArmoredCar(int x, int y)
+	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {
+	imageG = BID_ARMORED_G;
+	imageB = BID_ARMORED_B;
 }
 
-ArmoredCar::ArmoredCar(int x, int y)
-	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {}
+ResourceID ArmoredCar::GetImage() {
+	if (hp == 2)return imageG;
+	return imageB;
+}
 
 HeavyTank::HeavyTank(int x, int y)
-	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {}
+	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {
+	imageR = BID_HEAVY_R;
+	imageG = BID_HEAVY_G;
+	imageB = BID_HEAVY_B;
+}
 
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> AntiTankGun::image = { {
-{ L'　',L'█',L'　' },
-{ L'※',L'▲',L'※' },
-{ L'※',L'卐',L'※' } }
-};
+ResourceID HeavyTank::GetImage() {
+	if (hp == 3)return imageR;
+	if (hp == 2)return imageG;
+	return imageB;
+}
 
-const array<array<wchar_t, EnemyTank::WIDTH_X>, EnemyTank::WIDTH_Y> AntiTankGun::GetImage() {
+ResourceID AntiTankGun::GetImage() {
 	return image;
 }
 
 AntiTankGun::AntiTankGun(int x, int y)
-	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {}
+	: EnemyTank(x, y, HP, DAMAGE, SPEED, SHOOT_SPEED) {
+	image = BID_ANTI;
+}
