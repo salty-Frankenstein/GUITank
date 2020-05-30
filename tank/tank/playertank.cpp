@@ -45,6 +45,7 @@ inline void PlayerTank::Update() {
 	else if (getKey[VK_DOWN]) { dirCur = D_DOWN; posCur.Y += speed; }
 	else if (getKey[VK_LEFT]) { dirCur = D_LEFT; posCur.X -= speed; }
 	else if (getKey[VK_RIGHT]) { dirCur = D_RIGHT; posCur.X += speed; }
+	// TODO
 	return;
 
 	/*

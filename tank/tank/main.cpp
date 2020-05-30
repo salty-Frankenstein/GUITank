@@ -46,7 +46,7 @@ bool Display() {
 	return true;
 }
 
-Wnd myWnd(800, 600, WndProc, Display, "Tank");
+Wnd myWnd(960, 720, WndProc, Display, "Tank");
 
 int WINAPI WinMain(WINPARAMETERS) {
 	if (!myWnd.Create(INITPARAMETERS))

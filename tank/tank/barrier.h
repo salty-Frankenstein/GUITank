@@ -4,7 +4,7 @@
 #include<iostream>
 
 const int BARRIER_LAYER = 5;
-const int BARRIER_WIDTH = 25;
+const int BARRIER_WIDTH = 15;
 
 /* 障碍物基类 */
 class Barrier :public Sprite {

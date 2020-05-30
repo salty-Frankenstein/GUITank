@@ -1,22 +1,6 @@
 ﻿#include"background.h"
 using namespace std;
 
-const wchar_t Background::player[6][6] = {
-	{ L'　',L'　',L'█',L'　',L'　' },
-{ L'　',L'　',L'█',L'　',L'　' },
-{ L'█',L'█',L'█',L'█',L'█' },
-{ L'█',L'█',L'★' ,L'█',L'█' },
-{ L'█',L'　',L'　',L'　',L'█' },
-};
-
-const wchar_t Background::enemy[6][6] = {
-	{ L'　',L'　',L'█',L'　',L'　' },
-{ L'　',L'　',L'█',L'　',L'　' },
-{ L'█',L'█',L'█',L'█',L'█' },
-{ L'█',L'█',L'卐' ,L'█',L'█' },
-{ L'█',L'　',L'　',L'　',L'█' },
-};
-
 void Background::Show() {}
 
 void Background::Update() {}
@@ -24,19 +8,20 @@ void Background::Update() {}
 void Background::Delete() {}
 
 void Background::Draw() {
-	COORD pos{ 0, 1 };
+	//COORD pos{ 0, 1 };
 
 	/* 边框 */
 	for (int i = 0; i < GRID_X; i++) {
-		bufferHdl->Push(make_shared<IronWall>(i * 2, 0));
-		bufferHdl->Push(make_shared<IronWall>(i * 2, GRID_Y - 1));
+		bufferHdl->Push(make_shared<IronWall>(i * BARRIER_WIDTH, 0));
+		bufferHdl->Push(make_shared<IronWall>(i * BARRIER_WIDTH, (GRID_Y-1) * BARRIER_WIDTH));
 	}
 
 	for (int i = 1; i <= GRID_Y - 2; i++) {
-		bufferHdl->Push(make_shared<IronWall>(0, i));
-		bufferHdl->Push(make_shared<IronWall>((GRID_X - 1) * 2, i));
+		bufferHdl->Push(make_shared<IronWall>(0, i * BARRIER_WIDTH));
+		bufferHdl->Push(make_shared<IronWall>((GRID_X - 1) * BARRIER_WIDTH, i * BARRIER_WIDTH));
 	}
 
+	/*
 	SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED);
 	pos.X = (GRID_X + 4) * 2;
 	pos.Y = 10;
@@ -63,4 +48,5 @@ void Background::Draw() {
 	pos.X = (GRID_X + 1) * 2;
 	pos.Y = GRID_Y - 14;
 	DrawTitle(pos, LOGO_PATH);
+	*/
 }

@@ -12,11 +12,17 @@ int Game::enemyKill = 0;
 bool Game::playerAlive = true;
 GameState Game::state = G_MENU;
 
-Game::Game(GFactory& g) : resPool(g) {
-	Sprite::resPoolHdl = &resPool;
-}
+// TODO
 Buffer testBuf;
 shared_ptr<Number> testnum = make_shared<Number>(200, 200, 5, 0.8);
+Background bg;
+
+Game::Game(GFactory& g) : resPool(g) {
+	Sprite::resPoolHdl = &resPool;
+	// TODO
+	Sprite::bufferHdl = &testBuf;
+}
+
 void Game::ResourceInit() {
 	resPool.ResourceInit();
 	testBuf.Push(make_shared<PlayerTank>(10, 10));
@@ -24,6 +30,7 @@ void Game::ResourceInit() {
 	testBuf.Push(make_shared<WaterWall>(125, 125));
 	testBuf.Push(make_shared<HeavyTank>(150, 150));
 	testBuf.Push(testnum);
+	bg.Draw();
 	//testBuf.Push(make_shared<Bullet>(S_PLAYER_BULLET, 100, 100, D_RIGHT));
 }
 
@@ -42,7 +49,7 @@ void Game::TestRun() {
 }
 
 void Game::Run() {
-	system("cls");
+	//system("cls");
 	bool win = true;
 	/* 游戏主流程状态机 */
 	while (state != G_EXIT) {

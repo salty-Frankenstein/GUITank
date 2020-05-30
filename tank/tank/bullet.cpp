@@ -27,6 +27,7 @@ void Bullet::Update() {
 	case D_LEFT:posCur.X -= BULLET_SPEED; break;
 	case D_RIGHT:posCur.X += BULLET_SPEED; break;
 	}
+	// TODO
 	return;
 	/* 判断是当前子弹的目标 */
 	auto isEnemy = [=](shared_ptr<Sprite> s) -> bool {
@@ -117,16 +118,6 @@ void Bullet::Show() {
 	if (del)return;
 	DRAWBITMAP(*resPoolHdl, image, 
 		posCur.X, posCur.Y, posCur.X + BULLET_WIDTH, posCur.Y + BULLET_WIDTH);
-	/*
-	if(type == S_PLAYER_BULLET)
-		SetConsoleTextAttribute(GetStdOHdl(), 14);
-	else SetConsoleTextAttribute(GetStdOHdl(), FOREGROUND_RED);
-	SetConsoleCursorPosition(GetStdOHdl(), posLast);
-	wcout << L'　';
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << image;
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-	*/
 }
 
 Direction Bullet::GetDirection()const {

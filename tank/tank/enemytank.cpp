@@ -36,6 +36,7 @@ void EnemyTank::DrawTank() {
 void EnemyTank::Update() {
 	static RandomInt randomInt;
 	hp = randomInt(1, 3);
+	// TODO
 	return;
 	if (hp <= 0) {
 		Delete();

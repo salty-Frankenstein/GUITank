@@ -27,29 +27,9 @@ IronWall::IronWall(int x, int y)
 BrickWall::BrickWall(int x, int y)
 	: Barrier(x, y, S_DESTORYABLE, BID_BRICKWALL) {}
 
-/*
-void BrickWall::Show() {
-	if (Game::GetGameTime() % REDRAW != 0)return;
-	SetConsoleTextAttribute(GetStdOHdl(), 96);
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L"＋";
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-}
-*/
-
 /* class WaterWall */
 WaterWall::WaterWall(int x, int y)
 	: Barrier(x, y, S_ACCESSIBLE, BID_WATERWALL) {}
-
-/*
-void WaterWall::Show() {
-	if (Game::GetGameTime() % 2 != 0)return;
-	SetConsoleTextAttribute(GetStdOHdl(), 151);
-	SetConsoleCursorPosition(GetStdOHdl(), posCur);
-	wcout << L"≈";
-	SetConsoleTextAttribute(GetStdOHdl(), 7);
-}
-*/
 
 /* class PlayerBase */
 PlayerBase::PlayerBase(int x, int y)

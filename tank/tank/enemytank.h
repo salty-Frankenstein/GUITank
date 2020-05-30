@@ -8,8 +8,8 @@ public:
 	EnemyTank(int x, int y, int hp, int damage, int speed, int shootSpeed);
 	void Update();
 	void DrawTank();
-	const static int WIDTH_X = 50;
-	const static int WIDTH_Y = 50;
+	const static int WIDTH_X = 45;
+	const static int WIDTH_Y = 45;
 	virtual ResourceID GetImage();
 protected:
 	void GoStraight();

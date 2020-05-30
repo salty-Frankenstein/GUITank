@@ -21,8 +21,8 @@ Stage::Stage(int no, Mode _mode) {
 }
 
 bool Stage::Run() {
-	SetFontSize(14);
-	system("cls");
+	//SetFontSize(14);
+	//system("cls");
 	shared_ptr<Background> bg = make_shared<Background>();
 	bg->Draw();
 	buf.Push(bg);
