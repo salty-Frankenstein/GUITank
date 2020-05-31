@@ -28,7 +28,6 @@ void TankBase::Delete() {
 		Game::player--;
 		Game::playerAlive = false;
 	}
-	//Clean();
 	PLAYSOUND(*resPoolHdl, SID_BLAST);
 }
 

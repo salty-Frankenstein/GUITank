@@ -75,6 +75,7 @@ void Stage::LoadStage(int no) {	//读取关卡文件
 			case '#':buf.Push(make_shared<BrickWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
 			case '=':buf.Push(make_shared<IronWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
 			case '~':buf.Push(make_shared<WaterWall>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
+			case '!':buf.Push(make_shared<Bush>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;
 			case 'P':playerPoint = { j * BARRIER_WIDTH, i * BARRIER_WIDTH }; break;
 			case 'E':enemyPoint.push_back({ j * BARRIER_WIDTH, i * BARRIER_WIDTH }); break;
 			case 'B':buf.Push(make_shared<PlayerBase>(j * BARRIER_WIDTH, i * BARRIER_WIDTH)); break;

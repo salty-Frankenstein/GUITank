@@ -42,3 +42,9 @@ void PlayerBase::Delete() {
 	del = true;
 	Game::state = G_GAMEOVER;
 }
+
+/* class bush */
+Bush::Bush(int x, int y)
+	: Barrier(x, y, S_OTHER, BID_BUSH) {
+	layer = 1;
+}

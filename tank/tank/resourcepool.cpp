@@ -29,6 +29,8 @@ void ResourcePool::ResourceInit() {
 	bmp[BID_BACKGROUND] = make_shared<Bitmap>(dao->GetFile(".\\res\\bg.png"));
 	bmp[BID_COVER] = make_shared<Bitmap>(dao->GetFile(".\\res\\cover.png"));
 
+	bmp[BID_BUSH] = make_shared<Bitmap>(dao->GetFile(".\\res\\grass.png"));
+
 	//buttons
 	bmp[BID_EASY0] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\easy0.png"));
 	bmp[BID_EASY1] = make_shared<Bitmap>(dao->GetFile(".\\res\\button\\easy1.png"));

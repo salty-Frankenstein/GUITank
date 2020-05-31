@@ -42,3 +42,8 @@ public:
 	void Show();
 	void Delete()override;
 };
+
+class Bush : public Barrier {
+public:
+	Bush(int x, int y);
+};

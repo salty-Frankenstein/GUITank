@@ -19,6 +19,8 @@ constexpr ResourceID BID_ANTI = 13;
 constexpr ResourceID BID_BACKGROUND = 14;
 constexpr ResourceID BID_COVER = 15;
 
+constexpr ResourceID BID_BUSH = 16;
+
 constexpr ResourceID BID_NUM0 = 20;
 constexpr ResourceID BID_NUM1 = 21;
 constexpr ResourceID BID_NUM2 = 22;
