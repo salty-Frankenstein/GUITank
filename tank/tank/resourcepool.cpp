@@ -3,8 +3,8 @@
 using namespace std;
 
 ResourcePool::ResourcePool(GFactory& g) : gf(&g) {
-	dao = make_shared<NormalDataAccess>();
-	//dao = make_shared<CompressedDataAccess>(".\\", "res");
+	//dao = make_shared<NormalDataAccess>();
+	dao = make_shared<CompressedDataAccess>(".\\", "res");
 }
 
 void ResourcePool::ResourceInit() {

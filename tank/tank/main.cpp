@@ -6,27 +6,6 @@ HWND hwnd;
 GFactory gf(hwnd);
 Game game(gf);
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-	switch (msg) {
-	case WM_KEYDOWN:
-		getKey[wParam] = true;
-		keyDown = true;
-		return 0;
-
-	case WM_KEYUP:
-		getKey[wParam] = false;
-		keyDown = false;
-		return 0;
-	case WM_CLOSE:
-		DestroyWindow(hWnd);
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-	}
-	return DefWindowProc(hWnd, msg, wParam, lParam);
-}
-
 void init() {
 	game.ResourceInit();
 }

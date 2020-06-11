@@ -3,6 +3,27 @@
 #include <cassert>
 using namespace std;
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	switch (msg) {
+	case WM_KEYDOWN:
+		getKey[wParam] = true;
+		keyDown = true;
+		return 0;
+
+	case WM_KEYUP:
+		getKey[wParam] = false;
+		keyDown = false;
+		return 0;
+	case WM_CLOSE:
+		DestroyWindow(hWnd);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
 Mode Game::gameMode = M_EASY;
 GameTime Game::gameTime = 0;
 int Game::player = 0;
@@ -17,8 +38,6 @@ Game::Game(GFactory& g) : resPool(g) {
 	Sprite::resPoolHdl = &resPool;
 	Stage::resPoolHdl = &resPool;
 	Menu::resPoolHdl = &resPool;
-	// TODO
-	
 }
 
 void Game::ResourceInit() {

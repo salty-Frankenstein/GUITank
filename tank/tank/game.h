@@ -8,6 +8,8 @@
 #include"resourcepool.h"
 #include <vector>
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 typedef unsigned long long GameTime;
 
 enum GameState { G_MENU, G_GAME, G_HISCORE, G_GAMEOVER, G_WIN, G_EXIT };
